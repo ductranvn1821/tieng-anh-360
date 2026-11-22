@@ -1642,7 +1642,7 @@ function mergeProfiles(a, b){
 }
 async function buildBackup(){
   let placement = null; try { placement = await Store.get("placement-result"); } catch {}
-  return {app:BK_APP, v:1, exportedAt:new Date().toISOString(), profile:S.profile, placement};
+  return {app:BK_APP, v:1, name:learnerName(S.learner), exportedAt:new Date().toISOString(), profile:S.profile, placement};
 }
 function parseBackup(text){
   let o; try { o = JSON.parse(String(text||"").trim()); } catch { throw new Error("Mã sao lưu không đọc được. Hãy dán đủ toàn bộ nội dung."); }

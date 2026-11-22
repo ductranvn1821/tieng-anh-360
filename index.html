@@ -227,6 +227,10 @@ input.res-no,.built.res-no{border:2px solid var(--bad);background:var(--bad-soft
 .loading{display:flex;flex-direction:column;align-items:center;gap:10px;padding:48px 16px;text-align:center;color:var(--muted)}
 #toast{position:fixed;left:50%;bottom:calc(var(--navh) + 20px);transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:.9rem;z-index:60;max-width:calc(100% - 32px);box-shadow:0 6px 24px rgba(0,0,0,.2)}
 .confirm{display:flex;flex-direction:column;gap:8px;background:var(--bad-soft);border-radius:10px;padding:12px}
+.tr-btn{position:fixed;z-index:60;border:0;border-radius:999px;background:var(--accent);color:var(--accent-ink);font-weight:700;padding:7px 14px;box-shadow:0 4px 14px rgba(0,0,0,.25);cursor:pointer}
+.tr-pop{position:fixed;z-index:61;left:12px;right:12px;max-width:520px;margin:0 auto;background:var(--surface);color:var(--ink);border:2px solid var(--accent);border-radius:12px;padding:12px 14px;box-shadow:0 8px 28px rgba(0,0,0,.28);display:flex;flex-direction:column;gap:8px}
+.tr-pop .src{font-size:.85rem;color:var(--muted);max-height:4.5em;overflow:auto}
+.tr-pop .out{font-weight:700;font-size:1.05rem}
 hr.sep{border:0;border-top:1px solid var(--line);margin:4px 0}
 </style>
 
@@ -665,6 +669,7 @@ function setHash(v){ try { history.replaceState(null, "", "#" + v); } catch {} }
 function go(v){
   S.view = NAV.some(n => n[0]===v) || v === "lesson" || v === "learners" ? v : "today";
   if (S.view === "lesson" && !S.lesson) S.view = "today";
+  Tr.hide();
   if (S.view !== "lesson"){ Voice.stop(); if (Mic.active) Mic.d?.stop().catch(() => {}); }
   setHash(S.view);
   render();
@@ -1523,6 +1528,55 @@ function copyBtn(text){
   return h("button",{type:"button",class:"btn quiet sm",onclick:e => { const b = e.currentTarget; navigator.clipboard.writeText(text).then(() => { b.textContent = "Đã chép"; }, () => toast("Không chép được, hãy bôi đen và sao chép thủ công.")); }},"Chép");
 }
 
+/* ============================== TRANSLATE SELECTION (only after a lesson is submitted) ============================== */
+const Tr = {
+  btn:null, pop:null, cache:{}, t:0,
+  allowed(){ return S.view === "lesson" && !!S.lesson?.results; },
+  init(){
+    document.addEventListener("selectionchange", () => { clearTimeout(this.t); this.t = setTimeout(() => this.onSel(), 350); });
+    document.addEventListener("pointerdown", e => { if (this.pop && !this.pop.contains(e.target) && e.target !== this.btn) this.hide(); });
+  },
+  hide(all = true){ this.btn?.remove(); this.btn = null; if (all){ this.pop?.remove(); this.pop = null; } },
+  onSel(){
+    const sel = getSelection(), text = String(sel || "").trim().replace(/\s+/g, " ");
+    if (!this.allowed() || !text || text.length > 400 || !sel.rangeCount || !$("#view").contains(sel.anchorNode)) return this.hide(false);
+    const r = sel.getRangeAt(0).getBoundingClientRect();
+    this.hide(false);
+    const top = r.bottom + 8 + 44 > innerHeight - (parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--navh")) || 0) ? r.top - 46 : r.bottom + 8;
+    this.btn = h("button",{type:"button",class:"tr-btn",style:`top:${Math.max(8, top)}px;left:${Math.min(Math.max(8, r.left), innerWidth - 110)}px`,onclick:() => this.show(text, top)}, "Dịch");
+    this.btn.addEventListener("pointerdown", e => e.preventDefault()); // keep the selection
+    document.body.append(this.btn);
+  },
+  async show(text, top){
+    const vi = /[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/i.test(text);
+    const [src, tgt] = vi ? ["vi","en"] : ["en","vi"];
+    const out = h("div",{class:"out"}, h("span",{class:"spinner"}), " Đang dịch…");
+    this.hide();
+    this.pop = h("div",{class:"tr-pop",role:"dialog","aria-label":"Bản dịch",style:`top:${Math.min(Math.max(8, top + 46), innerHeight - 200)}px`},
+      h("div",{class:"row",style:"justify-content:space-between"}, h("span",{class:"lbl"}, vi ? "Việt → Anh" : "Anh → Việt"), h("button",{type:"button",class:"btn quiet sm",onclick:() => this.hide()},"Đóng")),
+      h("div",{class:"src"}, text), out);
+    document.body.append(this.pop);
+    try {
+      const res = this.cache[tgt + text] ||= await this.translate(text, src, tgt);
+      out.replaceChildren(res);
+      if (tgt === "en" || src === "en") this.pop.append(h("div",{class:"row"}, sayBtn(tgt === "en" ? res : text, "Nghe tiếng Anh")));
+    } catch {
+      delete this.cache[tgt + text];
+      out.replaceChildren(h("span",{class:"small"},"Chưa dịch được. "), h("a",{href:`https://translate.google.com/?sl=${src}&tl=${tgt}&op=translate`,target:"_blank",rel:"noopener"},"Mở Google Dịch"));
+    }
+  },
+  async translate(text, src, tgt){
+    if (AI.s){ const o = await AI.json(`Translate from ${src === "vi" ? "Vietnamese" : "English"} to ${tgt === "vi" ? "Vietnamese" : "English"}, naturally, keeping the meaning. Return only JSON {"t":"translation"}.\nText: """${text}"""`, {modelTier:"quick"}); if (o?.t) return String(o.t); }
+    if ("Translator" in self) try { // Chrome on-device translation: private, free
+      if (await withTimeout(Translator.availability({sourceLanguage:src, targetLanguage:tgt}), 3000) === "available") return await withTimeout(Translator.create({sourceLanguage:src, targetLanguage:tgt}).then(t => t.translate(text)), 8000);
+    } catch {}
+    const r = await withTimeout(fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${src}|${tgt}`), 10000);
+    const t = (await r.json())?.responseData?.translatedText;
+    if (!r.ok || !t || /MYMEMORY WARNING/i.test(t)) throw new Error("tr");
+    return t;
+  }
+};
+
 /* ============================== LEARNERS (profiles on this device / account) ============================== */
 const learnerName = id => S.learners.find(l => l.id === id)?.name || "Người học";
 async function saveLearners(){ await Store.set("learners", S.learners); showWho(); }
@@ -1648,7 +1702,7 @@ async function boot(){
   S.learners = (await Store.get("learners")) || [];
   const last = lsGet("learner");
   S.learner = S.learners.some(l => l.id === last) ? last : (S.learners[0]?.id || "main");
-  $("#who").onclick = () => go("learners"); showWho();
+  $("#who").onclick = () => go("learners"); showWho(); Tr.init();
   S.profile = await Store.get("profile");
   route();
   document.addEventListener("visibilitychange", async () => {

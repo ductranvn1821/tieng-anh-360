@@ -7,10 +7,10 @@
 <style>
 /* Layout: a study planner. Today's lesson card first, a 12×30 year grid as the signature, lessons as one long worksheet. */
 :root{
-  --bg:#F2F4F7; --surface:#FFFFFF; --surface-2:#E9EDF3; --ink:#17202C; --muted:#5A6576; --line:#D8DEE7;
+  --bg:#F2F4F7; --surface:#FFFFFF; --surface-2:#E9EDF3; --ink:#0B1220; --muted:#3F4A5B; --line:#D8DEE7;
   --accent:#3346C9; --accent-ink:#FFFFFF; --accent-soft:#E2E6FB;
   --mark:#C98510; --mark-soft:#FBEFD6;
-  --good:#1B8049; --good-soft:#DCF1E4; --bad:#BF3A29; --bad-soft:#F9E0DC;
+  --good:#167A42; --good-soft:#D3EEDD; --bad:#C62A1A; --bad-soft:#FBDCD7; --res-ink:#FFFFFF;
   --font-display:"Lexend","Be Vietnam Pro",system-ui,sans-serif;
   --font-body:"Be Vietnam Pro","Segoe UI",system-ui,sans-serif;
   --font-ipa:"Noto Sans","Segoe UI","Arial Unicode MS",sans-serif;
@@ -20,13 +20,13 @@
   --bg:#0E131A; --surface:#161D27; --surface-2:#1F2835; --ink:#E7EBF1; --muted:#9AA5B5; --line:#2B3544;
   --accent:#8F9DFF; --accent-ink:#0E131A; --accent-soft:#242D50;
   --mark:#F0B54A; --mark-soft:#3A2F17;
-  --good:#52C588; --good-soft:#15301F; --bad:#F27D6C; --bad-soft:#3B1E1A; color-scheme:dark;
+  --good:#52C588; --good-soft:#15301F; --bad:#F27D6C; --bad-soft:#3B1E1A; --res-ink:#0E131A; color-scheme:dark;
 }}
 :root[data-theme="dark"]{
   --bg:#0E131A; --surface:#161D27; --surface-2:#1F2835; --ink:#E7EBF1; --muted:#9AA5B5; --line:#2B3544;
   --accent:#8F9DFF; --accent-ink:#0E131A; --accent-soft:#242D50;
   --mark:#F0B54A; --mark-soft:#3A2F17;
-  --good:#52C588; --good-soft:#15301F; --bad:#F27D6C; --bad-soft:#3B1E1A; color-scheme:dark;
+  --good:#52C588; --good-soft:#15301F; --bad:#F27D6C; --bad-soft:#3B1E1A; --res-ink:#0E131A; color-scheme:dark;
 }
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55;-webkit-text-size-adjust:100%}
@@ -169,26 +169,32 @@ details.month[open]>summary{border-bottom:1px solid var(--line)}
 .q{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:10px}
 .q .qh{display:flex;gap:10px;align-items:flex-start}
 .q .qn{flex:none;font-family:var(--font-display);font-weight:600;color:var(--muted);font-size:.85rem;min-width:2em;padding-top:2px;font-variant-numeric:tabular-nums}
-.q .qt{flex:1;min-width:0;font-weight:500}
+.q .qt{flex:1;min-width:0;font-weight:600}
 .q.ok{border-color:color-mix(in srgb,var(--good) 55%,var(--line))}
 .q.no{border-color:color-mix(in srgb,var(--bad) 55%,var(--line))}
 .opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:8px}
 .opt{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 12px;cursor:pointer;min-height:44px}
 .opt:hover{border-color:var(--accent)}
-.opt.sel{border-color:var(--accent);background:var(--accent-soft)}
-.opt.right{border-color:var(--good);background:var(--good-soft)}
-.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt.sel{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 2px var(--accent);font-weight:700}
+.opt.right,.opt.wrong{color:var(--res-ink);font-weight:700;opacity:1}
+.opt.right{border-color:var(--good);background:var(--good)} .opt.right::before{content:"✓ "}
+.opt.wrong{border-color:var(--bad);background:var(--bad)} .opt.wrong::before{content:"✗ "}
+input:disabled,textarea:disabled{color:var(--ink);-webkit-text-fill-color:var(--ink);opacity:1;font-weight:600}
+input.res-ok,.built.res-ok{border:2px solid var(--good);background:var(--good-soft)}
+input.res-no,.built.res-no{border:2px solid var(--bad);background:var(--bad-soft)}
 .opt[disabled]{cursor:default}
 .pool,.built{display:flex;flex-wrap:wrap;gap:6px;min-height:44px;padding:6px;border-radius:10px}
 .built{border:1px dashed var(--line);background:var(--surface-2)}
 .wchip{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 10px;cursor:pointer}
 .wchip:hover{border-color:var(--accent)}
+.built .wchip{background:var(--accent-soft);border-color:var(--accent);font-weight:700;color:var(--ink)}
 .fb{border-radius:10px;padding:10px 12px;font-size:.92rem;display:flex;flex-direction:column;gap:6px}
-.fb.ok{background:var(--good-soft)} .fb.no{background:var(--bad-soft)} .fb.info{background:var(--surface-2)}
-.fb .lbl{font-weight:700}
+.fb.ok{background:var(--good-soft);border-left:5px solid var(--good)} .fb.no{background:var(--bad-soft);border-left:5px solid var(--bad)} .fb.info{background:var(--surface-2)}
+.fb .lbl{font-weight:700} .fb.ok .lbl{color:var(--good)} .fb.no .lbl{color:var(--bad);font-size:1rem}
+.fb.no b{color:var(--good);font-weight:800}
 .err{display:flex;flex-direction:column;gap:2px;padding:6px 0;border-top:1px dashed color-mix(in srgb,var(--ink) 18%,transparent)}
 .err:first-child{border-top:0}
-.err s{color:var(--bad)} .err ins{color:var(--good);text-decoration:none;font-weight:600}
+.err s{color:var(--bad);font-weight:600} .err ins{color:var(--good);text-decoration:none;font-weight:600}
 .diff span{padding:0 1px}
 .diff .miss{color:var(--bad);text-decoration:underline wavy;font-weight:600}
 .diff .hit{color:var(--good)}
@@ -1065,13 +1071,13 @@ function renderQ(b, i, n, done){
     if (done) box.append(fbObjective(r, b.opts[b.ans], b.why_vi));
   }
   else if (b.type === "fill"){
-    const inp = h("input",{type:"text",id:"q"+i,value:a || "",disabled:done ? true : null,autocomplete:"off",autocapitalize:"off",spellcheck:"false",placeholder:"Điền đáp án",oninput:e => set(e.target.value)});
+    const inp = h("input",{type:"text",id:"q"+i,value:a || "",disabled:done ? true : null,autocomplete:"off",autocapitalize:"off",spellcheck:"false",placeholder:"Điền đáp án",class:done && r ? (r.score >= 1 ? "res-ok" : "res-no") : null,oninput:e => set(e.target.value)});
     box.append(inp);
     if (done) box.append(fbObjective(r, b.ans.join(" / "), b.why_vi));
   }
   else if (b.type === "order"){
     const chosen = Array.isArray(a) ? a.slice() : [];
-    const built = h("div",{class:"built","aria-label":"Câu của bạn"}), pool = h("div",{class:"pool"});
+    const built = h("div",{class:"built" + (done && r ? (r.score >= 1 ? " res-ok" : " res-no") : ""),"aria-label":"Câu của bạn"}), pool = h("div",{class:"pool"});
     const draw = () => {
       built.replaceChildren(...chosen.map((k, pos) => h("button",{type:"button",class:"wchip",disabled:done?true:null,onclick:() => { chosen.splice(pos,1); set(chosen.slice()); draw(); }}, b.words[k])));
       if (!chosen.length) built.append(h("span",{class:"small muted",style:"padding:6px"}, done ? "(bỏ trống)" : "Chạm vào các từ bên dưới theo đúng thứ tự"));

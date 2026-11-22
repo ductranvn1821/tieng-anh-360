@@ -1,0 +1,1597 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#3346C9"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg"><script>window.L360_LESSONS="lessons/";window.L360_CLAUDE_LINKS=[["App claude.ai (TK1)","https://claude.ai/artifact/RgDRYxaFm34CpbDZNL9y7K"],["App claude.ai (TK2)","https://claude.ai/artifact/TPEnAUxrKpELTdXHzuGgJy"]]</script>
+<title>Lộ trình tiếng Anh 360</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lexend:wght@500;600;700&family=Noto+Sans:wght@400;500&display=swap">
+<style>
+/* Layout: a study planner. Today's lesson card first, a 12×30 year grid as the signature, lessons as one long worksheet. */
+:root{
+  --bg:#F2F4F7; --surface:#FFFFFF; --surface-2:#E9EDF3; --ink:#17202C; --muted:#5A6576; --line:#D8DEE7;
+  --accent:#3346C9; --accent-ink:#FFFFFF; --accent-soft:#E2E6FB;
+  --mark:#C98510; --mark-soft:#FBEFD6;
+  --good:#1B8049; --good-soft:#DCF1E4; --bad:#BF3A29; --bad-soft:#F9E0DC;
+  --font-display:"Lexend","Be Vietnam Pro",system-ui,sans-serif;
+  --font-body:"Be Vietnam Pro","Segoe UI",system-ui,sans-serif;
+  --font-ipa:"Noto Sans","Segoe UI","Arial Unicode MS",sans-serif;
+  --r:12px; --navh:0px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E131A; --surface:#161D27; --surface-2:#1F2835; --ink:#E7EBF1; --muted:#9AA5B5; --line:#2B3544;
+  --accent:#8F9DFF; --accent-ink:#0E131A; --accent-soft:#242D50;
+  --mark:#F0B54A; --mark-soft:#3A2F17;
+  --good:#52C588; --good-soft:#15301F; --bad:#F27D6C; --bad-soft:#3B1E1A; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0E131A; --surface:#161D27; --surface-2:#1F2835; --ink:#E7EBF1; --muted:#9AA5B5; --line:#2B3544;
+  --accent:#8F9DFF; --accent-ink:#0E131A; --accent-soft:#242D50;
+  --mark:#F0B54A; --mark-soft:#3A2F17;
+  --good:#52C588; --good-soft:#15301F; --bad:#F27D6C; --bad-soft:#3B1E1A; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55;-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;line-height:1.25;margin:0}
+h1{font-size:1.7rem;font-weight:700} h2{font-size:1.25rem;font-weight:600} h3{font-size:1.05rem;font-weight:600}
+p{margin:0}
+a{color:var(--accent)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* header + nav */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:16px;padding-block:10px}
+.brand{font-family:var(--font-display);font-weight:700;font-size:1.08rem;letter-spacing:-.01em;white-space:nowrap}
+.brand small{display:block;font-family:var(--font-body);font-weight:400;font-size:.74rem;color:var(--muted);letter-spacing:0}
+.tabs{display:flex;gap:2px;margin-left:auto}
+.tabs a{display:flex;align-items:center;gap:6px;text-decoration:none;color:var(--muted);padding:7px 11px;border-radius:999px;font-weight:500;font-size:.92rem}
+.tabs a svg{width:18px;height:18px;flex:none}
+.tabs a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+.tabs.bottom{display:none}
+@media (max-width:720px){
+  :root{--navh:calc(62px + env(safe-area-inset-bottom,0px))}
+  .tabs.side{display:none}
+  .tabs.bottom{display:flex;position:fixed;left:0;right:0;bottom:0;margin:0;z-index:40;justify-content:space-around;background:var(--surface);border-top:1px solid var(--line);
+    padding:6px max(6px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(6px,env(safe-area-inset-left,0px))}
+  .tabs.bottom a{flex-direction:column;gap:2px;font-size:.68rem;padding:4px 6px;border-radius:10px;min-width:58px}
+  .tabs.bottom a svg{width:21px;height:21px}
+}
+.sync{font-size:.72rem;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 8px;white-space:nowrap}
+main{padding-block:20px calc(40px + var(--navh))}
+.stack{display:flex;flex-direction:column;gap:16px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.muted{color:var(--muted)} .small{font-size:.86rem}
+.eyebrow{font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.card.flat{background:transparent;border-style:dashed}
+.hero{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+.daynum{font-family:var(--font-display);font-weight:700;line-height:1;font-size:3.2rem;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.daynum small{font-size:1rem;color:var(--muted);font-weight:500;letter-spacing:0}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:.78rem;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--surface-2);color:var(--ink)}
+.chip.accent{background:var(--accent-soft);color:var(--accent)}
+.chip.mark{background:var(--mark-soft);color:var(--mark)}
+.chip.good{background:var(--good-soft);color:var(--good)}
+.chip.bad{background:var(--bad-soft);color:var(--bad)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);border-radius:10px;padding:9px 16px;font-weight:600;cursor:pointer;text-decoration:none;min-height:42px}
+.btn:hover{filter:brightness(1.06)}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn.quiet{background:var(--surface-2);border-color:transparent;color:var(--ink)}
+.btn.sm{padding:5px 11px;min-height:34px;font-size:.88rem;border-radius:8px}
+.btn.danger{background:transparent;border-color:var(--bad);color:var(--bad)}
+.btn[disabled]{opacity:.5;cursor:not-allowed;filter:none}
+.btn.live{background:var(--bad);border-color:var(--bad);color:#fff;animation:pulse 1.2s infinite}
+@keyframes pulse{50%{opacity:.75}}
+@media (prefers-reduced-motion:reduce){.btn.live{animation:none}}
+
+[hidden]{display:none!important}
+label.field{display:flex;flex-direction:column;gap:5px;font-size:.88rem;font-weight:500;color:var(--muted);min-width:0}
+.row>label.field{flex:1 1 200px}
+input[type=text],select,textarea{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 11px;color:var(--ink);font-size:1rem}
+textarea{min-height:110px;resize:vertical;line-height:1.5}
+input[type=text]:focus,select:focus,textarea:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
+
+/* week strip & year grid */
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.dchip{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;border-radius:10px;border:1px solid var(--line);background:var(--surface);padding:7px 2px;cursor:pointer;min-width:0;font-variant-numeric:tabular-nums}
+.dchip b{font-family:var(--font-display);font-size:1rem}
+.dchip span{font-size:.62rem;font-weight:600;letter-spacing:.04em;color:var(--muted);text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.dchip.done{background:var(--good-soft);border-color:transparent}
+.dchip.done span{color:var(--good)}
+.dchip.low{background:var(--mark-soft)} .dchip.low span{color:var(--mark)}
+.dchip.now{border:2px solid var(--accent);background:var(--accent-soft)}
+.dchip.now span{color:var(--accent)}
+.dchip.lock{opacity:.55}
+.year{display:grid;grid-template-columns:28px repeat(30,minmax(0,1fr));gap:3px;align-items:center}
+.year .ml{font-size:.68rem;color:var(--muted);font-weight:600}
+.cell{aspect-ratio:1;border-radius:3px;background:var(--surface-2);max-width:100%;border:0;padding:0;cursor:default}
+.cell.s1{background:color-mix(in srgb,var(--accent) 30%,var(--surface-2))}
+.cell.s2{background:color-mix(in srgb,var(--accent) 55%,var(--surface-2))}
+.cell.s3{background:color-mix(in srgb,var(--accent) 80%,var(--surface-2))}
+.cell.s4{background:var(--accent)}
+.cell.now{outline:2px solid var(--mark);outline-offset:1px}
+.cell.click{cursor:pointer}
+.legend{display:flex;gap:6px;align-items:center;font-size:.74rem;color:var(--muted)}
+.legend .cell{width:12px;height:12px}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+.stat b{display:block;font-family:var(--font-display);font-size:1.6rem;font-variant-numeric:tabular-nums;line-height:1.2}
+.stat span{font-size:.78rem;color:var(--muted)}
+@media (max-width:560px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.bars{display:flex;flex-direction:column;gap:9px}
+.bar{display:grid;grid-template-columns:96px 1fr 44px;gap:10px;align-items:center;font-size:.9rem}
+.bar .track{height:10px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.bar .fill{height:100%;background:var(--accent);border-radius:99px}
+.bar em{font-style:normal;font-variant-numeric:tabular-nums;text-align:right;color:var(--muted)}
+
+/* roadmap */
+details.month{background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+details.month>summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;gap:12px;align-items:center}
+details.month>summary::-webkit-details-marker{display:none}
+details.month>summary .mno{font-family:var(--font-display);font-weight:700;color:var(--accent);min-width:2.4em}
+details.month>summary .prog{margin-left:auto;font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+details.month[open]>summary{border-bottom:1px solid var(--line)}
+.mbody{padding:14px 16px;display:flex;flex-direction:column;gap:16px}
+.wk{display:flex;flex-direction:column;gap:8px}
+.wk .wt{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.wk .wt b{font-family:var(--font-display);font-weight:600}
+.phase{font-family:var(--font-display);font-weight:600;color:var(--muted);font-size:.9rem;margin-top:8px}
+.rhythm{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:8px}
+.rhythm div{background:var(--surface-2);border-radius:10px;padding:8px 10px;font-size:.85rem}
+.rhythm div b{display:block;font-size:.72rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+
+/* lesson */
+.lesson-head{display:flex;flex-direction:column;gap:8px}
+.block{display:flex;flex-direction:column;gap:10px}
+.note{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:var(--r);padding:16px 18px}
+.note.sec{border-left-color:var(--mark);background:transparent;border-style:none none none solid;border-radius:0;padding:4px 0 4px 14px}
+.ex{display:flex;flex-direction:column;gap:2px;padding:8px 0;border-top:1px dashed var(--line)}
+.ex:first-of-type{border-top:0}
+.ex .vi{color:var(--muted);font-size:.9rem}
+.reading{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;max-width:68ch}
+.reading p{margin:0 0 .8em} .reading p:last-child{margin:0}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.vcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.vcard .w{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.vcard .w b{font-family:var(--font-display);font-size:1.15rem;font-weight:600}
+.ipa{font-family:var(--font-ipa);color:var(--accent);font-size:.95rem}
+.pos{font-size:.75rem;color:var(--muted);font-style:italic}
+.vcard .mean{font-weight:600}
+.hide-mean .vcard:not(.peek) .mean,.hide-mean .vcard:not(.peek) .exvi{filter:blur(6px);user-select:none;cursor:pointer}
+.col{display:flex;gap:4px;flex-wrap:wrap}
+.col span{font-size:.78rem;background:var(--surface-2);border-radius:6px;padding:2px 7px}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.q .qh{display:flex;gap:10px;align-items:flex-start}
+.q .qn{flex:none;font-family:var(--font-display);font-weight:600;color:var(--muted);font-size:.85rem;min-width:2em;padding-top:2px;font-variant-numeric:tabular-nums}
+.q .qt{flex:1;min-width:0;font-weight:500}
+.q.ok{border-color:color-mix(in srgb,var(--good) 55%,var(--line))}
+.q.no{border-color:color-mix(in srgb,var(--bad) 55%,var(--line))}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:8px}
+.opt{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 12px;cursor:pointer;min-height:44px}
+.opt:hover{border-color:var(--accent)}
+.opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+.opt.right{border-color:var(--good);background:var(--good-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt[disabled]{cursor:default}
+.pool,.built{display:flex;flex-wrap:wrap;gap:6px;min-height:44px;padding:6px;border-radius:10px}
+.built{border:1px dashed var(--line);background:var(--surface-2)}
+.wchip{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 10px;cursor:pointer}
+.wchip:hover{border-color:var(--accent)}
+.fb{border-radius:10px;padding:10px 12px;font-size:.92rem;display:flex;flex-direction:column;gap:6px}
+.fb.ok{background:var(--good-soft)} .fb.no{background:var(--bad-soft)} .fb.info{background:var(--surface-2)}
+.fb .lbl{font-weight:700}
+.err{display:flex;flex-direction:column;gap:2px;padding:6px 0;border-top:1px dashed color-mix(in srgb,var(--ink) 18%,transparent)}
+.err:first-child{border-top:0}
+.err s{color:var(--bad)} .err ins{color:var(--good);text-decoration:none;font-weight:600}
+.diff span{padding:0 1px}
+.diff .miss{color:var(--bad);text-decoration:underline wavy;font-weight:600}
+.diff .hit{color:var(--good)}
+.player{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+.script{white-space:pre-line;background:var(--surface-2);border-radius:10px;padding:12px 14px;font-size:.95rem}
+.pron{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.pron .s{font-family:var(--font-display);font-size:1.12rem;font-weight:500}
+.pron dl{display:grid;grid-template-columns:max-content 1fr;gap:3px 12px;margin:4px 0 0;font-size:.9rem}
+.pron dt{color:var(--muted);font-weight:600} .pron dd{margin:0;min-width:0}
+.submitbar{position:sticky;bottom:calc(var(--navh) + 8px);z-index:15;display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 12px 10px 16px;box-shadow:0 6px 24px rgba(0,0,0,.12)}
+.submitbar .grow{flex:1;min-width:0}
+.scorebig{font-family:var(--font-display);font-weight:700;font-size:2.6rem;line-height:1;font-variant-numeric:tabular-nums}
+.live-txt{font-size:.85rem;color:var(--muted);font-style:italic}
+.wc{font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* chat */
+.chatlog{display:flex;flex-direction:column;gap:12px}
+.msg{max-width:min(560px,92%);display:flex;flex-direction:column;gap:6px}
+.msg .bub{border-radius:14px;padding:10px 13px}
+.msg.t{align-self:flex-start} .msg.t .bub{background:var(--surface);border:1px solid var(--line);border-top-left-radius:4px}
+.msg.u{align-self:flex-end} .msg.u .bub{background:var(--accent);color:var(--accent-ink);border-top-right-radius:4px}
+.msg .tr{font-size:.86rem;color:var(--muted)}
+.composer{position:sticky;bottom:calc(var(--navh) + 8px);display:flex;gap:8px;align-items:flex-end;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:8px}
+.composer textarea{min-height:46px;max-height:160px;border:0;box-shadow:none;padding:8px}
+.seg{display:flex;flex-wrap:wrap;gap:4px;background:var(--surface-2);border-radius:12px;padding:4px}
+.seg button{border:0;background:transparent;padding:8px 12px;border-radius:9px;cursor:pointer;font-weight:600;color:var(--muted);white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:spin .8s linear infinite;vertical-align:-3px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading{display:flex;flex-direction:column;align-items:center;gap:10px;padding:48px 16px;text-align:center;color:var(--muted)}
+#toast{position:fixed;left:50%;bottom:calc(var(--navh) + 20px);transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:.9rem;z-index:60;max-width:calc(100% - 32px);box-shadow:0 6px 24px rgba(0,0,0,.2)}
+.confirm{display:flex;flex-direction:column;gap:8px;background:var(--bad-soft);border-radius:10px;padding:12px}
+hr.sep{border:0;border-top:1px solid var(--line);margin:4px 0}
+</style>
+
+<header class="top"><div class="wrap">
+  <div class="brand">Lộ trình 360<small>Gia sư tiếng Anh cô Linh</small></div>
+  <nav class="tabs side" id="navSide"></nav>
+  <span class="sync" id="sync">Đang kết nối…</span>
+</div></header>
+<main class="wrap" id="view"><div class="loading"><span class="spinner"></span>Đang mở sổ học…</div></main>
+<nav class="tabs bottom" id="navBottom"></nav>
+<div id="toast" hidden></div>
+
+<script>
+"use strict";
+/* ============================== DATA ============================== */
+const MONTHS = [
+ {vi:"Bản thân & công việc", en:"Me & my job", weeks:[
+  ["Giới thiệu bản thân","Introducing yourself","Present simple & 'to be'","Tự giới thiệu tên, quê quán, công việc trôi chảy trong 1 phút."],
+  ["Công việc của tôi","My job & responsibilities","Present simple vs present continuous","Mô tả công việc thường ngày và việc đang làm tuần này."],
+  ["Đồng nghiệp & công ty","Colleagues & company","Past simple (regular & irregular)","Kể về công ty, đồng nghiệp và quá trình làm việc."],
+  ["Lịch làm việc","Work schedules","Wh-questions & prepositions of time","Hỏi và trả lời về giờ giấc, lịch họp, hạn chót."]]},
+ {vi:"Cuộc sống hằng ngày", en:"Daily life", weeks:[
+  ["Thói quen hằng ngày","Daily routines","Adverbs of frequency","Kể một ngày bình thường của bạn bằng 6–8 câu."],
+  ["Ăn uống & nhà hàng","Food & restaurants","Countable/uncountable, some/any, much/many","Gọi món, hỏi thông tin và phàn nàn lịch sự ở nhà hàng."],
+  ["Nhà cửa & khu phố","Home & neighbourhood","Comparatives & superlatives","So sánh nơi ở và mô tả khu phố của bạn."],
+  ["Gia đình & bạn bè","Family & friends","can / could / have to / must","Nói về gia đình, khả năng và nghĩa vụ của mình."]]},
+ {vi:"Giao tiếp nơi làm việc", en:"Workplace communication", weeks:[
+  ["Gọi điện thoại","Phone calls","Polite requests: could you / would you mind","Gọi, nhận điện thoại và để lại lời nhắn rõ ràng."],
+  ["Họp hành","Meetings","Future: will / going to / present continuous","Đưa ý kiến, đồng ý và phản đối lịch sự trong cuộc họp."],
+  ["Báo cáo tiến độ","Progress updates","Present perfect vs past simple","Báo cáo việc đã xong, chưa xong và kế hoạch tiếp theo."],
+  ["Giải quyết vấn đề","Solving problems","First conditional","Nêu vấn đề và đề xuất giải pháp kèm hệ quả."]]},
+ {vi:"Email & văn bản công việc", en:"Emails & business writing", weeks:[
+  ["Email cơ bản","Email basics","Formal vs informal phrases, linking words","Viết email ngắn đúng cấu trúc: chào, mục đích, kết."],
+  ["Yêu cầu & xác nhận","Requests & confirmations","Passive voice (present & past)","Viết email yêu cầu và xác nhận thông tin chính xác."],
+  ["Phàn nàn & xin lỗi","Complaints & apologies","Relative clauses (who / which / that)","Viết email phàn nàn và phản hồi lịch sự, chuyên nghiệp."],
+  ["Biên bản & báo cáo","Minutes & reports","Reported speech (requests & commands)","Tóm tắt một cuộc họp thành biên bản ngắn gọn."]]},
+ {vi:"Xây dựng & công trường", en:"Construction & the site", weeks:[
+  ["Vật liệu & thiết bị","Materials & equipment","Passive voice for processes","Gọi tên vật liệu, thiết bị và mô tả một quy trình thi công."],
+  ["An toàn lao động","Site safety","must / mustn't / have to / don't have to","Phổ biến quy định an toàn và cảnh báo mối nguy."],
+  ["Bản vẽ & kích thước","Drawings & dimensions","Numbers, measurements, prepositions of place","Đọc kích thước và mô tả vị trí cấu kiện trên bản vẽ."],
+  ["Tiến độ thi công","Construction schedules","Present perfect continuous","Báo cáo tiến độ, sự chậm trễ và nguyên nhân."]]},
+ {vi:"Du lịch & dịch vụ", en:"Travel & services", weeks:[
+  ["Sân bay & khách sạn","Airports & hotels","Past continuous vs past simple","Làm thủ tục, đặt phòng và xử lý sự cố khi đi công tác."],
+  ["Hỏi đường & đi lại","Directions & transport","Imperatives & sequencing words","Hỏi đường và chỉ đường rõ ràng theo từng bước."],
+  ["Trải nghiệm du lịch","Travel experiences","used to / would","Kể lại một chuyến đi đáng nhớ có mở đầu, diễn biến, kết."],
+  ["Kế hoạch & ước mơ","Plans & dreams","Second conditional","Nói về điều bạn sẽ làm nếu có cơ hội."]]},
+ {vi:"Sức khỏe & lối sống", en:"Health & lifestyle", weeks:[
+  ["Đi khám bệnh","At the doctor's","should / ought to / had better","Mô tả triệu chứng và hiểu lời khuyên của bác sĩ."],
+  ["Thể thao & thói quen","Sport & habits","Gerund vs infinitive","Nói về sở thích và thói quen tốt, xấu."],
+  ["Áp lực & cân bằng","Stress & work-life balance","too / enough / quantifiers","Bàn về áp lực công việc và cách cân bằng cuộc sống."],
+  ["Ăn uống lành mạnh","Healthy eating","Zero conditional & time clauses","Đưa lời khuyên về lối sống lành mạnh."]]},
+ {vi:"Công nghệ & phần mềm", en:"Technology & software", weeks:[
+  ["Máy tính & phần mềm","Computers & software","Passive with modals (can be done)","Mô tả chức năng của một phần mềm bạn dùng."],
+  ["Hỗ trợ kỹ thuật","Tech support","Phrasal verbs (set up, log in, back up…)","Mô tả lỗi phần mềm và hướng dẫn cách khắc phục."],
+  ["BIM & thiết kế số","BIM & digital design","Non-defining relative clauses","Giải thích quy trình làm việc với mô hình 3D."],
+  ["Tương lai công nghệ","The future of technology","Future continuous & future perfect","Dự đoán những thay đổi trong ngành của bạn."]]},
+ {vi:"Tiền bạc & hợp đồng", en:"Money & contracts", weeks:[
+  ["Mua sắm & thanh toán","Shopping & payment","as…as, the more…the more","Mua hàng, mặc cả, đổi trả hàng."],
+  ["Ngân sách & chi phí","Budgets & costs","Large numbers, percentages, trends","Trình bày số liệu chi phí và ngân sách."],
+  ["Hợp đồng","Contracts","Third conditional","Hiểu điều khoản hợp đồng và hậu quả khi vi phạm."],
+  ["Báo giá & đấu thầu","Quotations & tenders","Reported speech (statements)","Trao đổi báo giá và thuật lại thông tin chính xác."]]},
+ {vi:"Thuyết trình & đàm phán", en:"Presentations & negotiation", weeks:[
+  ["Mở đầu thuyết trình","Opening a presentation","Signposting language","Mở đầu và giới thiệu bố cục bài nói tự tin."],
+  ["Trình bày biểu đồ","Describing charts","Describing trends: rise, fall, peak","Mô tả biểu đồ và số liệu rõ ràng."],
+  ["Đàm phán","Negotiating","Hedging & softening (might, I'm afraid…)","Đưa đề nghị và nhượng bộ khéo léo."],
+  ["Trả lời câu hỏi","Handling Q&A","Cleft sentences for emphasis","Xử lý câu hỏi khó một cách bình tĩnh, tự tin."]]},
+ {vi:"Văn hóa & xã hội", en:"Culture & society", weeks:[
+  ["Tin tức","The news","Past perfect & narrative tenses","Tóm tắt một bản tin bằng lời của mình."],
+  ["Văn hóa làm việc quốc tế","Working across cultures","Articles a / an / the","So sánh văn hóa làm việc Việt Nam và nước ngoài."],
+  ["Môi trường & đô thị","Environment & cities","although / despite / however","Trình bày một quan điểm có hai mặt."],
+  ["Tranh luận","Debating","Inversion & formal structures","Bảo vệ quan điểm bằng lập luận chặt chẽ."]]},
+ {vi:"Sự nghiệp & tương lai", en:"Career & future", weeks:[
+  ["CV & hồ sơ","CVs & profiles","Action verbs & tense review","Viết đoạn giới thiệu nghề nghiệp ấn tượng."],
+  ["Phỏng vấn xin việc","Job interviews","Modals of deduction (must have, can't have)","Trả lời các câu hỏi phỏng vấn phổ biến."],
+  ["Mục tiêu nghề nghiệp","Career goals","wish / if only & future plans","Trình bày kế hoạch nghề nghiệp 5 năm."],
+  ["Tổng ôn cả năm","Year review","Review of all tenses","Giao tiếp tự tin về mọi chủ đề đã học."]]}
+];
+const PHASES = {1:"Giai đoạn 1 · Nền tảng giao tiếp", 4:"Giai đoạn 2 · Tiếng Anh công việc", 7:"Giai đoạn 3 · Mở rộng & chuyên ngành", 10:"Giai đoạn 4 · Tự tin & thành thạo"};
+const WEEK_ORDER = ["vocab","grammar","listening","reading","speaking","writing","weekReview"];
+const TYPES = {
+  vocab:{vi:"Từ vựng", code:"TV", min:20}, grammar:{vi:"Ngữ pháp", code:"NP", min:20},
+  listening:{vi:"Nghe hiểu", code:"Nghe", min:20}, reading:{vi:"Đọc hiểu", code:"Đọc", min:20},
+  speaking:{vi:"Nói & phát âm", code:"Nói", min:20}, writing:{vi:"Viết", code:"Viết", min:25},
+  weekReview:{vi:"Ôn tập tuần", code:"Ôn", min:20}, monthReview:{vi:"Ôn tập tháng", code:"Ôn T", min:25},
+  monthTest:{vi:"Kiểm tra tháng", code:"KT", min:30}
+};
+const SKILLS = {vocab:"Từ vựng", grammar:"Ngữ pháp", reading:"Đọc", listening:"Nghe", writing:"Viết", speaking:"Nói"};
+const LEVELS = ["A1","A2","A2+","B1","B1+","B2","B2+","C1","C1+"];
+const LEVEL_VI = {"A1":"Mới bắt đầu","A2":"Sơ cấp","A2+":"Sơ cấp khá","B1":"Trung cấp","B1+":"Trung cấp khá","B2":"Trung cao cấp","B2+":"Trung cao cấp khá","C1":"Cao cấp","C1+":"Cao cấp khá"};
+const GOALS = ["Giao tiếp trong công việc","Giao tiếp hằng ngày & du lịch","Đọc hiểu tài liệu chuyên ngành","Thi IELTS","Thi TOEIC"];
+
+function plan(day){
+  const m = Math.ceil(day/30), dIn = (day-1)%30+1, M = MONTHS[m-1];
+  let w, type;
+  if (dIn <= 28){ w = Math.ceil(dIn/7); type = WEEK_ORDER[(dIn-1)%7]; }
+  else { w = 4; type = dIn === 29 ? "monthReview" : "monthTest"; }
+  const W = M.weeks[w-1];
+  return {day, m, w, dIn, weekNo:(m-1)*4+w, type, M, sub_vi:W[0], sub_en:W[1], grammar:W[2], can:W[3]};
+}
+function weekDays(m, w){ const s=(m-1)*30+(w-1)*7+1; return Array.from({length:7},(_,i)=>s+i); }
+
+/* ============================== PLACEMENT TEST ============================== */
+const mcq = (skill,q,opts,ans,why) => ({kind:"q",type:"mcq",skill,q,opts,ans,why_vi:why||""});
+const PLACEMENT = {title:"Kiểm tra trình độ đầu vào", goal_vi:"Khoảng 25–30 phút, gồm 6 phần từ dễ đến khó. Đừng tra từ điển. Câu nào không biết thì cứ bỏ trống, như vậy kết quả mới đúng trình độ của bạn.", blocks:[
+ {kind:"note",sec:true,title:"Phần 1 · Từ vựng",text_vi:"10 câu, độ khó tăng dần từ A1 đến C1."},
+ mcq("vocab","The opposite of \"expensive\" is:",["cheap","easy","short","poor"],0,"cheap = rẻ."),
+ mcq("vocab","My sister is a ___. She works in a hospital and helps patients.",["teacher","nurse","lawyer","chef"],1,"nurse = y tá."),
+ mcq("vocab","Can you ___ me your pen? I forgot mine.",["borrow","lend","take","bring"],1,"lend = cho mượn; borrow = mượn của ai."),
+ mcq("vocab","I always try to ___ my best.",["make","do","take","give"],1,"Cụm cố định: do your best."),
+ mcq("vocab","The meeting was ___ because the manager was sick.",["called off","called up","called back","called in"],0,"call off = hủy."),
+ mcq("vocab","The project was delayed due to a ___ of materials.",["lack","loss","less","miss"],0,"a lack of = sự thiếu hụt."),
+ mcq("vocab","She is very ___. She always finishes her work on time.",["reliable","available","responsible for","sensible"],0,"reliable = đáng tin cậy."),
+ mcq("vocab","All contractors must ___ with the safety regulations.",["obey","comply","follow","respect"],1,"comply with = tuân thủ (đi với giới từ with)."),
+ mcq("vocab","His explanation was so ___ that nobody understood it.",["convoluted","concise","coherent","straightforward"],0,"convoluted = rối rắm, phức tạp."),
+ mcq("vocab","The new safety measures are designed to ___ the risk of accidents.",["mitigate","undermine","foster","exert"],0,"mitigate the risk = giảm thiểu rủi ro."),
+ {kind:"note",sec:true,title:"Phần 2 · Ngữ pháp",text_vi:"10 câu."},
+ mcq("grammar","She ___ from Vietnam.",["am","is","are","be"],1,"Chủ ngữ she → is."),
+ mcq("grammar","I ___ to the cinema last weekend.",["go","goes","went","have gone"],2,"last weekend → quá khứ đơn."),
+ mcq("grammar","Look! It ___.",["rains","is raining","rained","has rained"],1,"Look! → hành động đang diễn ra."),
+ mcq("grammar","There aren't ___ eggs in the fridge.",["some","any","much","a"],1,"Câu phủ định với danh từ số nhiều → any."),
+ mcq("grammar","I ___ here since 2020.",["live","am living","have lived","lived"],2,"since + mốc thời gian → hiện tại hoàn thành."),
+ mcq("grammar","If it rains tomorrow, we ___ at home.",["stay","will stay","would stay","stayed"],1,"Câu điều kiện loại 1: If + hiện tại, will + V."),
+ mcq("grammar","This bridge ___ in 2015.",["built","was built","has built","is building"],1,"Bị động quá khứ: was/were + V3."),
+ mcq("grammar","If I ___ more time, I would learn another language.",["have","had","will have","would have"],1,"Câu điều kiện loại 2: If + quá khứ, would + V."),
+ mcq("grammar","She asked me where ___.",["did I work","I worked","do I work","I work did"],1,"Câu hỏi gián tiếp không đảo trợ động từ."),
+ mcq("grammar","___ the report earlier, we would have avoided the mistake.",["If we read","Had we read","Were we read","Should we read"],1,"Đảo ngữ câu điều kiện loại 3: Had + S + V3."),
+ {kind:"note",sec:true,title:"Phần 3 · Đọc hiểu",text_vi:"Đọc đoạn văn rồi trả lời 6 câu."},
+ {kind:"reading",title:"Maria's bakery",text:"Maria started her own small bakery five years ago. At first, she worked alone, waking up at 4 a.m. every day to bake bread before the shop opened. Business was slow during the first year, and she almost gave up. However, things changed when a local food blogger wrote a positive review of her cinnamon rolls. Within a month, the number of customers had doubled.\n\nToday, Maria employs six people and supplies bread to three nearby cafés. Although she no longer has to bake everything herself, she still arrives early every morning. \"Running a business isn't just about making a good product,\" she says. \"You have to understand your customers and be patient. Success rarely happens overnight, even if it looks that way from the outside.\"\n\nMaria is now planning to open a second shop, but she is careful not to expand too quickly. She believes that quality matters more than size."},
+ mcq("reading","Why did Maria almost give up?",["She was tired of waking up early","Business was slow in the first year","A blogger criticised her bread","She could not find staff"],1,"\"Business was slow during the first year, and she almost gave up.\""),
+ mcq("reading","What changed her business?",["A new shop location","A positive review by a food blogger","Lower prices","A cooking competition"],1,"Bước ngoặt là bài review của một food blogger."),
+ mcq("reading","Maria still bakes all the bread herself.",["True","False","Not Given"],1,"\"she no longer has to bake everything herself\" → False."),
+ mcq("reading","Maria's second shop will be in another city.",["True","False","Not Given"],2,"Bài không nói shop thứ hai ở đâu → Not Given."),
+ mcq("reading","In the text, \"overnight\" means:",["during the night","very quickly or suddenly","slowly","every evening"],1,"happen overnight = xảy ra trong chớp mắt."),
+ mcq("reading","What does Maria mean by \"even if it looks that way from the outside\"?",["Success looks sudden to other people, but it really took years of work","Her shop looks beautiful from the street","Customers only see the outside of the shop","She prefers working outside"],0,"Người ngoài tưởng thành công đến nhanh, thực ra mất nhiều năm."),
+ {kind:"note",sec:true,title:"Phần 4 · Nghe",text_vi:"Mỗi đoạn được nghe tối đa 2 lần. Lời thoại sẽ hiện sau khi nộp bài."},
+ {kind:"listening",title:"Đoạn 1 · Thông báo ở nhà ga",plays:2,script:"Attention please. The ten fifteen train to Da Nang has been delayed by thirty minutes because of heavy rain. The train will now depart at ten forty-five from platform four, not platform two. We apologise for any inconvenience."},
+ mcq("listening","Where is the train going?",["Hanoi","Da Nang","Hue","Nha Trang"],1),
+ mcq("listening","What time will the train leave now?",["10:15","10:30","10:45","11:15"],2),
+ mcq("listening","Which platform should passengers go to?",["Platform 2","Platform 4","Platform 14","Platform 40"],1),
+ {kind:"listening",title:"Đoạn 2 · Tin nhắn thoại công việc",plays:2,script:"Hi, it's Daniel from the purchasing department. I'm calling about the steel order for the new warehouse project. The supplier delivered it yesterday, but only half of the beams arrived, and some of them were the wrong size. I've already sent them an email, but I haven't heard back yet. Could you check the drawings and send me the exact list of what we still need before Thursday? We'll go through everything at Friday's meeting, which is still on, by the way. Thanks a lot. Bye."},
+ mcq("listening","Why is Daniel calling?",["About a steel order for the warehouse project","To cancel Friday's meeting","To complain about the drawings","To order new trucks"],0),
+ mcq("listening","What went wrong with the delivery?",["It arrived a week late","Only half arrived and some beams were the wrong size","It went to the wrong site","The beams were damaged by rain"],1),
+ mcq("listening","What does Daniel want before Thursday?",["A new supplier","The exact list of what is still needed","A copy of the contract","A meeting with the supplier"],1),
+ mcq("listening","What about Friday's meeting?",["It is cancelled","It moved to Thursday","It is still happening","It is not mentioned"],2),
+ {kind:"listening",title:"Đoạn 3 · Ý kiến về làm việc từ xa",plays:2,script:"I think remote work is here to stay, but I don't believe it suits everyone. On the one hand, people save a lot of time by not commuting, and many of them are actually more productive at home. On the other hand, it can be quite isolating, and younger employees often miss out on learning from more experienced colleagues. In my view, the best solution is a hybrid model. Companies should let people decide which days they come in, as long as teams agree on a few days when everyone is in the office together."},
+ mcq("listening","What is the speaker's main opinion?",["Remote work will disappear soon","Remote work will stay, but it does not suit everyone","Everyone should work from home","Offices are always more productive"],1),
+ mcq("listening","Which disadvantages does the speaker mention?",["Long commutes and high costs","Isolation and less learning from experienced colleagues","Poor internet and noise","Lower salaries and fewer holidays"],1),
+ mcq("listening","What does the speaker suggest?",["Fully remote work","A hybrid model with some shared office days","Five days a week in the office","Managers decide everything"],1),
+ {kind:"q",type:"dict",skill:"listening",plays:2,text:"I have been working here for almost three years."},
+ {kind:"q",type:"dict",skill:"listening",plays:2,text:"Could you send me the report by the end of the day?"},
+ {kind:"q",type:"dict",skill:"listening",plays:2,text:"If the weather had been better, we would have finished the foundation last week."},
+ {kind:"note",sec:true,title:"Phần 5 · Viết",text_vi:"Viết tự nhiên theo khả năng, không cần hoàn hảo."},
+ {kind:"q",type:"write",skill:"writing",q:"Introduce yourself in 5–7 sentences: your job, a normal day, and why you are learning English.",min:50},
+ {kind:"q",type:"write",skill:"writing",q:"Write an email (80–120 words) to your manager asking to postpone tomorrow morning's meeting. Give a reason and suggest a new time.",min:80},
+ {kind:"note",sec:true,title:"Phần 6 · Nói",text_vi:"Bấm Nói để trả lời bằng giọng nói (trình duyệt Chrome, Edge hoặc app Claude trên máy tính), hoặc gõ nhanh như đang nói. Mỗi câu trả lời 3–6 câu."},
+ {kind:"q",type:"speak",skill:"speaking",q:"Tell me about your job. What do you like and dislike about it?"},
+ {kind:"q",type:"speak",skill:"speaking",q:"You're at a restaurant and the waiter brings you the wrong dish. What do you say?"},
+ {kind:"q",type:"speak",skill:"speaking",q:"In a meeting, you don't understand what a foreign colleague just said. How do you ask them to explain?"},
+ {kind:"q",type:"speak",skill:"speaking",q:"Is working from home better than working in an office? Why?"}
+]};
+
+/* ============================== UTILS ============================== */
+const $ = (s, r=document) => r.querySelector(s);
+function h(tag, props, ...kids){
+  const el = document.createElement(tag);
+  if (props) for (const [k,v] of Object.entries(props)){
+    if (v == null || v === false) continue;
+    if (k === "class") el.className = v;
+    else if (k === "text") el.textContent = v;
+    else if (k.startsWith("on") && typeof v === "function") el.addEventListener(k.slice(2), v);
+    else el.setAttribute(k, v === true ? "" : v);
+  }
+  for (const c of kids.flat(Infinity)){ if (c == null || c === false) continue; el.append(c.nodeType ? c : String(c)); }
+  return el;
+}
+function rich(t){
+  const f = document.createDocumentFragment();
+  String(t ?? "").split("\n").forEach((line, li) => {
+    if (li) f.append(h("br"));
+    line.split(/(\*\*[^*]+\*\*)/).forEach(seg => {
+      if (/^\*\*[^*]+\*\*$/.test(seg)) f.append(h("b", null, seg.slice(2,-2))); else if (seg) f.append(seg);
+    });
+  });
+  return f;
+}
+const z2 = n => String(n).padStart(2,"0");
+const ymd = d => d.getFullYear()+"-"+z2(d.getMonth()+1)+"-"+z2(d.getDate());
+const today = () => ymd(new Date());
+const parseYmd = s => { const [y,m,d] = s.split("-").map(Number); return new Date(y, m-1, d); };
+const daysBetween = (a,b) => Math.round((parseYmd(b) - parseYmd(a)) / 86400000);
+const addDays = (s,n) => { const d = parseYmd(s); d.setDate(d.getDate()+n); return ymd(d); };
+const fmtVN = s => { const d = parseYmd(s); return d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear(); };
+const dayKey = n => "day-" + String(n).padStart(3,"0");
+const clamp = (x,a,b) => Math.max(a, Math.min(b, x));
+const isObj = v => v && typeof v === "object" && !Array.isArray(v);
+function deepMerge(t, s){ for (const [k,v] of Object.entries(s)){ if (isObj(v) && isObj(t[k])) deepMerge(t[k], v); else t[k] = isObj(v) ? deepMerge({}, v) : v; } return t; }
+function lsGet(k){ try { const v = localStorage.getItem("l360:"+k); return v ? JSON.parse(v) : null; } catch { return null; } }
+function lsSet(k,v){ try { if (v == null) localStorage.removeItem("l360:"+k); else localStorage.setItem("l360:"+k, JSON.stringify(v)); } catch {} }
+let toastT;
+function toast(msg, ms=3200){ const t = $("#toast"); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => t.hidden = true, ms); }
+const withTimeout = (p, ms) => Promise.race([p, new Promise((_,rej) => setTimeout(() => rej({code:"timeout"}), ms))]);
+
+const CONTR = [[/\bwon't\b/g,"will not"],[/\bcan't\b/g,"can not"],[/\bcannot\b/g,"can not"],[/\bshan't\b/g,"shall not"],[/n't\b/g," not"],[/'re\b/g," are"],[/'ve\b/g," have"],[/'ll\b/g," will"],[/'m\b/g," am"],[/'d\b/g," would"]];
+function norm(s){
+  let x = String(s ?? "").toLowerCase().replace(/[’‘`´]/g,"'");
+  for (const [re,r] of CONTR) x = x.replace(re, r);
+  return x.replace(/[^a-z0-9'\s-]/g," ").replace(/-/g," ").replace(/\s+/g," ").trim();
+}
+const words = s => norm(s).split(" ").filter(Boolean);
+function lcsHits(a, b){
+  const n=a.length, m=b.length, dp = Array.from({length:n+1}, () => new Array(m+1).fill(0));
+  for (let i=n-1;i>=0;i--) for (let j=m-1;j>=0;j--) dp[i][j] = a[i]===b[j] ? dp[i+1][j+1]+1 : Math.max(dp[i+1][j], dp[i][j+1]);
+  const hit = new Array(n).fill(false); let i=0, j=0;
+  while (i<n && j<m){ if (a[i]===b[j]){ hit[i]=true; i++; j++; } else if (dp[i+1][j] >= dp[i][j+1]) i++; else j++; }
+  return {hit, len:dp[0][0]};
+}
+/* compare spoken/typed text against a target; returns score 0..1 and per-token hits for display */
+function compareText(target, said){
+  const tokens = String(target).split(/\s+/).filter(Boolean);
+  const a = [], owner = [];
+  tokens.forEach((t,ti) => words(t).forEach(w => { a.push(w); owner.push(ti); }));
+  const b = words(said);
+  const {hit, len} = lcsHits(a, b);
+  const tokHit = tokens.map((_,ti) => owner.every((o,k) => o !== ti || hit[k]));
+  const score = (a.length + b.length) ? (2*len)/(a.length + b.length) : 0;
+  return {score, tokens, tokHit};
+}
+const matchAny = (ans, accepted) => { const n = norm(ans); return !!n && [].concat(accepted||[]).some(x => norm(x) === n); };
+const wordCount = s => (String(s||"").trim().match(/\S+/g) || []).length;
+
+/* ============================== PLATFORM ============================== */
+const Store = {
+  mode:"local", db:null, base:null, q:{},
+  async init(){
+    if (!window.claude?.use) return;
+    try {
+      const [db, user] = await Promise.all([claude.use("db"), claude.use("user")]);
+      if (db && user){ const id = await user.id(); if (id){ this.db = db; this.base = "data/users/" + id; this.mode = "cloud"; } }
+    } catch (e) { console.warn("db init", e); }
+  },
+  ref(k){ return this.db.doc(this.base + "/" + k); },
+  async get(k){
+    if (this.mode === "cloud"){
+      try { const s = await withTimeout(this.ref(k).get(), 12000); const v = s.exists ? s.data() : null; if (v) lsSet(k, v); return v; }
+      catch (e){ console.warn("get", k, e); toast("Chưa kết nối được kho lưu trữ, đang dùng bản lưu trên máy."); return lsGet(k); }
+    }
+    return lsGet(k);
+  },
+  chain(k, fn){ const p = (this.q[k] || Promise.resolve()).then(fn, fn); this.q[k] = p.catch(() => {}); return p; },
+  async set(k, v){
+    lsSet(k, v);
+    if (this.mode !== "cloud") return;
+    return this.chain(k, () => this.ref(k).set(v)).catch(e => { console.warn("set", e); toast("Chưa lưu lên tài khoản được, dữ liệu vẫn còn trên máy này."); });
+  },
+  async patch(k, p){
+    const cur = lsGet(k) || {}; lsSet(k, deepMerge(cur, p));
+    if (this.mode !== "cloud") return;
+    return this.chain(k, () => this.ref(k).update(p)).catch(e => { console.warn("update", e); toast("Chưa lưu lên tài khoản được, dữ liệu vẫn còn trên máy này."); });
+  }
+};
+
+/* Web build (GitHub Pages): window.L360_LESSONS = folder of lessons posted daily. */
+const STATIC = typeof window.L360_LESSONS === "string";
+async function fetchJSON(f){
+  let r; try { r = await fetch(window.L360_LESSONS + f, {cache:"no-cache"}); } catch { throw {code:"offline"}; }
+  if (r.status === 404) throw {code:"not_published"};
+  if (!r.ok) throw {code:"offline"};
+  return r.json();
+}
+async function loadPublished(){ if (STATIC) try { S.published = ((await fetchJSON("index.json")).days || []).map(d => d.n); } catch {} }
+function aiOnlyCard(compact){
+  return h("div",{class:"card " + (compact ? "flat " : "") + "stack"}, h("b",null,"Hội thoại và chấm bài chi tiết"),
+    h("p",{class:"small muted"},"Bản web dùng bài cô Linh đăng sẵn mỗi ngày. Muốn hội thoại, được chấm và sửa bài viết, bài nói chi tiết, hãy mở app trên claude.ai."),
+    h("div",{class:"row"}, (window.L360_CLAUDE_LINKS || []).map(([t,u]) => h("a",{class:"btn quiet sm",href:u,target:"_blank",rel:"noopener"}, t))));
+}
+
+const AI = {
+  s:null,
+  async init(){ if (window.claude?.use) try { this.s = await claude.use("sample"); } catch {} },
+  async json(prompt, opts={}){ if (!this.s) throw {code:"unavailable"}; return this.s.json(prompt, {modelTier:"default", ...opts}); }
+};
+function errText(e){
+  const c = e?.code;
+  return ({
+    unavailable:"App cần mở trên claude.ai (đã đăng nhập) để cô Linh soạn và chấm bài.",
+    not_granted:"Bạn chưa cho phép trang này hỏi Claude. Mở menu Quyền (Permissions) của artifact để bật lại.",
+    rate_limited:"Claude đang bận. Chờ vài phút rồi thử lại.",
+    invalid_json:"Bài soạn bị lỗi định dạng. Bấm Thử lại.",
+    session_expired:"Phiên đăng nhập đã hết hạn. Tải lại trang.",
+    sampling_disabled:"Tính năng hỏi Claude đang tắt cho tài khoản này.",
+    refused:"Claude từ chối yêu cầu này. Thử đổi nội dung.",
+    timeout:"Mạng chậm, chưa nhận được phản hồi. Thử lại.",
+    short:"Bài viết quá ngắn. Hãy viết ít nhất một vài câu.",
+    cancelled:"Đã hủy.",
+    not_published:"Cô Linh chưa đăng bài này. Bài mới được đăng mỗi ngày, bạn quay lại sau nhé.",
+    offline:"Không tải được bài. Kiểm tra mạng rồi thử lại."
+  })[c] || ("Không kết nối được Claude" + (c ? " (" + c + ")" : "") + ". Thử lại sau.");
+}
+
+const Voice = {
+  t:null, synth:null, stopFlag:false,
+  async init(){
+    if (window.claude?.use) try { this.t = await claude.use("tts"); } catch {}
+    if ("speechSynthesis" in window){ this.pick(); speechSynthesis.onvoiceschanged = () => this.pick(); }
+  },
+  pick(){
+    const vs = speechSynthesis.getVoices().filter(v => /^en[-_]/i.test(v.lang));
+    const score = v => (/natural|online|google/i.test(v.name)?2:0) + (/en[-_]US/i.test(v.lang)?1:0);
+    this.synth = vs.sort((a,b) => score(b)-score(a));
+  },
+  ok(){ return !!this.t || "speechSynthesis" in window; },
+  async say(what, rate){
+    rate = rate || S.rate;
+    const lines = Array.isArray(what) ? what : [{text:what}];
+    this.stopFlag = false;
+    if (this.t){
+      try { await this.t.speak(lines.map(l => ({text:l.text, voice:l.voice || "buttery", language:"en"})), {rate:clamp(rate,0.7,1.5)}); return; }
+      catch (e){
+        if (e.code === "stopped" || e.code === "busy") return;
+        if (e.code === "rate_limited"){ toast("Giọng đọc đang bận, thử lại sau ít giây."); return; }
+        if (e.code === "not_granted" || e.code === "unavailable") this.t = null;
+        else console.warn("tts", e);
+      }
+    }
+    if ("speechSynthesis" in window){
+      speechSynthesis.cancel();
+      for (const l of lines){
+        if (this.stopFlag) break;
+        await new Promise(res => {
+          const u = new SpeechSynthesisUtterance(l.text); u.lang = "en-US"; u.rate = rate;
+          const pool = this.synth || []; const idx = {airy:1, rounded:2, glassy:3}[l.voice] || 0;
+          if (pool.length) u.voice = pool[Math.min(idx, pool.length-1)] || pool[0];
+          u.onend = u.onerror = () => res(); speechSynthesis.speak(u);
+        });
+      }
+      return;
+    }
+    toast("Thiết bị này chưa đọc được tiếng Anh.");
+  },
+  stop(){ this.stopFlag = true; this.t?.stop().catch(() => {}); try { speechSynthesis.cancel(); } catch {} }
+};
+function scriptLines(script){
+  const voices = {}, pool = ["airy","rounded","glassy"];
+  return String(script).split(/\n+/).map(s => s.trim()).filter(Boolean).map(s => {
+    const m = s.match(/^([A-Z][A-Za-z .]{0,18}):\s*(.+)$/);
+    if (!m) return {text:s, voice:"buttery"};
+    if (!voices[m[1]]) voices[m[1]] = pool[Object.keys(voices).length % 3];
+    return {text:m[2], voice:voices[m[1]]};
+  });
+}
+
+function webSpeech(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition; if (!SR) return null;
+  let rec, fin, par, st;
+  return { onFinal:f => fin = f, onPartial:f => par = f, onState:f => st = f,
+    start:() => new Promise((res, rej) => {
+      try {
+        rec = new SR(); rec.lang = "en-US"; rec.continuous = rec.interimResults = true;
+        rec.onresult = e => { let t = ""; for (let k = e.resultIndex; k < e.results.length; k++){ const x = e.results[k]; if (x.isFinal) fin?.({text:x[0].transcript.trim()}); else t += x[0].transcript; } par?.({text:t}); };
+        rec.onerror = e => { if (/not-allowed/.test(e.error)) rej({code:"not_granted"}); else if (!/no-speech|aborted/.test(e.error)) toast("Micro báo lỗi: " + e.error); };
+        rec.onstart = res; rec.onend = () => { rec = null; st?.({state:"idle"}); };
+        rec.start();
+      } catch { rej({code:"unavailable"}); }
+    }),
+    stop:async () => { try { rec?.stop(); } catch {} } };
+}
+
+const Mic = {
+  d:null, active:null, onFinal:null, onPartial:null,
+  async init(){
+    if (window.claude?.use) try { this.d = await claude.use("dictation"); } catch {}
+    this.d ||= webSpeech();
+    if (!this.d) return;
+    this.d.onFinal(({text}) => this.onFinal?.(text));
+    this.d.onPartial(({text}) => this.onPartial?.(text));
+    this.d.onState(({state}) => { if (state === "idle") this.end(); });
+  },
+  button(onFinal, onPartial, label="Nói", onStart){
+    if (!this.d) return null;
+    const b = h("button", {type:"button", class:"btn ghost sm"}, label);
+    b.dataset.label = label;
+    b.addEventListener("click", () => {
+      if (this.active){ this.d.stop().catch(() => {}); return; }
+      this.active = b; this.onFinal = onFinal; this.onPartial = onPartial;
+      onStart?.();
+      this.d.start({language:"en-US"}).catch(e => {
+        this.end();
+        if (e.code === "not_granted"){ this.d = null; toast("Micro đã bị tắt cho trang này. Bạn gõ câu trả lời nhé."); }
+        else if (e.code !== "dismissed" && e.code !== "stopped") toast("Không bật được micro (" + e.code + ").");
+      });
+      b.classList.add("live"); b.textContent = "Dừng";
+    });
+    return b;
+  },
+  end(){ if (this.active){ this.active.classList.remove("live"); this.active.textContent = this.active.dataset.label; this.onPartial?.(""); } this.active = null; }
+};
+
+/* ============================== STATE ============================== */
+const S = { profile:null, published:null, view:"today", lesson:null, rate:Number(lsGet("rate")) || 1, chat:null, tool:"write", toolOut:null };
+
+function progressInfo(P){
+  const done = P.done || {};
+  let next = 1; while (next <= 360 && done[next]) next++;
+  const doneN = Object.keys(done).length;
+  const cal = Math.max(1, daysBetween(P.startDate, today()) + 1);
+  return {done, doneN, next, cal, finished: next > 360, todayDone: next > cal && next <= 360};
+}
+function avg(arr){ return arr.length ? arr.reduce((a,b) => a+b, 0) / arr.length : null; }
+function recentScores(P, n){ return Object.keys(P.done||{}).map(Number).sort((a,b) => a-b).slice(-n).map(d => P.done[d].s); }
+
+/* ============================== NAV ============================== */
+const ICONS = {
+  today:'<path d="M4 5h16v15H4z"/><path d="M4 9h16M9 3v4M15 3v4"/><path d="M8.5 14.5l2 2 4-4"/>',
+  roadmap:'<path d="M5 19c3-6 11-2 14-9"/><circle cx="5" cy="19" r="1.8"/><circle cx="19" cy="6" r="1.8"/><path d="M9 6h4M7 11h3"/>',
+  chat:'<path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h8M8 13h5"/>',
+  tools:'<path d="M5 19l9-9"/><path d="M13 4l2 3 3 1-3 2-1 3-2-3-3-1 3-2z"/><path d="M4 8h3M6 6v4"/>',
+  progress:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'
+};
+const NAV = [["today","Hôm nay"],["roadmap","Lộ trình"],["chat","Hội thoại"],["tools","Luyện thêm"],["progress","Tiến độ"]];
+function renderNav(){
+  for (const id of ["navSide","navBottom"]){
+    const nav = document.getElementById(id); nav.replaceChildren();
+    for (const [k,label] of NAV.filter(n => !STATIC || !["chat","tools"].includes(n[0]))){
+      const a = h("a", {href:"#"+k, "aria-current": (S.view===k || (S.view==="lesson" && k==="today")) ? "page" : null});
+      a.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+ICONS[k]+'</svg>';
+      a.append(h("span", null, label));
+      a.addEventListener("click", e => { e.preventDefault(); go(k); });
+      nav.append(a);
+    }
+  }
+}
+function setHash(v){ try { history.replaceState(null, "", "#" + v); } catch {} }
+function go(v){
+  S.view = NAV.some(n => n[0]===v) || v === "lesson" ? v : "today";
+  if (S.view === "lesson" && !S.lesson) S.view = "today";
+  if (S.view !== "lesson"){ Voice.stop(); if (Mic.active) Mic.d?.stop().catch(() => {}); }
+  setHash(S.view);
+  render();
+}
+function route(){ go((location.hash || "#today").slice(1)); }
+function mount(...nodes){ const v = $("#view"); v.replaceChildren(...nodes.flat()); }
+function render(){
+  renderNav();
+  ({today:renderToday, roadmap:renderRoadmap, chat:renderChat, tools:renderTools, progress:renderProgress, lesson:renderLesson})[S.view]();
+  if (S.view !== "lesson") window.scrollTo(0,0);
+}
+function loadingView(msg){ return h("div", {class:"loading"}, h("span",{class:"spinner"}), h("div", null, msg)); }
+
+/* ============================== TODAY ============================== */
+function dayChip(n, P, onlyCode){
+  const p = plan(n), info = P ? progressInfo(P) : null, d = P?.done?.[n];
+  let cls = "dchip";
+  if (d) cls += d.s >= 70 ? " done" : " low";
+  else if (info && n === info.next && !info.todayDone) cls += " now";
+  else cls += " lock";
+  const title = "Ngày " + n + " · " + TYPES[p.type].vi + (d ? " · " + d.s + "%" : "");
+  return h("button", {type:"button", class:cls, title, "aria-label":title, onclick:() => clickDay(n)},
+    h("b", null, onlyCode ? TYPES[p.type].code : n), h("span", null, d ? d.s + "%" : (onlyCode ? "N" + n : TYPES[p.type].code)));
+}
+function clickDay(n){
+  const P = S.profile; if (!P) return;
+  const info = progressInfo(P);
+  if (P.done?.[n]) return openDay(n, true);
+  if (n === info.next && !info.todayDone) return openDay(n);
+  if (n === info.next) return toast("Bài ngày " + n + " sẽ mở vào ngày mai.");
+  toast("Bài ngày " + n + " dự kiến mở ngày " + fmtVN(addDays(today(), n - info.next + (info.todayDone ? 1 : 0))) + ".");
+}
+
+function renderToday(){
+  const P = S.profile;
+  if (!P) return mount(onboarding());
+  const info = progressInfo(P);
+  const nodes = [];
+  if (info.finished){
+    nodes.push(h("div",{class:"card stack"}, h("h1",null,"Bạn đã hoàn thành 360 ngày!"),
+      h("p",null,"Trình độ hiện tại: " + P.level + ". Hãy làm lại bài kiểm tra trình độ để thấy mình đã tiến bộ thế nào."),
+      h("div",{class:"row"}, h("button",{class:"btn",onclick:startPlacement},"Làm lại kiểm tra trình độ"))));
+    return mount(nodes);
+  }
+  const n = info.next, p = plan(info.todayDone ? n : n);
+  const streak = P.lastDate && daysBetween(P.lastDate, today()) <= 1 ? (P.streak||0) : 0;
+  nodes.push(h("section",{class:"hero"},
+    h("div",{class:"daynum"}, info.todayDone ? n-1 : n, h("small",null," /360")),
+    h("div",{class:"stack",style:"gap:6px"},
+      h("div",{class:"eyebrow"}, new Date().toLocaleDateString("vi-VN",{weekday:"long", day:"numeric", month:"numeric"})),
+      h("h1",null, info.todayDone ? "Hôm nay bạn đã học xong" : "Chào bạn, bài hôm nay đã sẵn sàng"),
+      h("div",{class:"chips"}, h("span",{class:"chip accent"},"Trình độ " + P.level), h("span",{class:"chip mark"},"Chuỗi " + streak + " ngày"),
+        P.difficulty ? h("span",{class:"chip"}, P.difficulty > 0 ? "Độ khó: nâng cao" : "Độ khó: nhẹ hơn") : null))));
+
+  if (info.todayDone){
+    const last = P.done[n-1];
+    nodes.push(h("div",{class:"card stack"},
+      h("div",{class:"row"}, h("span",{class:"chip good"},"Ngày " + (n-1) + " · " + last.s + "%"), h("span",{class:"muted small"}, TYPES[plan(n-1).type].vi)),
+      h("p",null,"Bài tiếp theo (ngày " + n + " · " + TYPES[p.type].vi + " · " + p.sub_vi + ") sẽ mở vào ngày mai. Hôm nay bạn có thể luyện thêm:"),
+      h("div",{class:"row"},
+        STATIC ? null : h("button",{class:"btn",onclick:() => go("chat")},"Hội thoại về " + p.sub_vi.toLowerCase()),
+        h("button",{class:"btn ghost",onclick:() => openDay(n-1, true)},"Xem lại bài hôm nay"),
+        AI.s && (P.mistakes||[]).length >= 3 ? h("button",{class:"btn ghost",onclick:openMistakeReview},"Ôn lỗi sai") : null)));
+  } else {
+    const behind = info.cal - n;
+    nodes.push(h("div",{class:"card stack"},
+      h("div",{class:"eyebrow"},"Tháng " + p.m + " · " + p.M.vi + " · Tuần " + p.w),
+      h("h2",null, TYPES[p.type].vi + ": " + (p.type==="monthReview"||p.type==="monthTest" ? p.M.vi : p.sub_vi)),
+      h("p",{class:"muted"}, p.type==="monthTest" ? "Bài kiểm tra cuối tháng. Từ 85% trở lên bạn sẽ được nâng trình độ." : "Mục tiêu tuần: " + p.can),
+      h("div",{class:"chips"}, h("span",{class:"chip"},"Khoảng " + TYPES[p.type].min + " phút"), h("span",{class:"chip"},"Ngữ pháp tuần: " + p.grammar)),
+      behind > 0 ? h("p",{class:"small muted"},"Bạn đang chậm " + behind + " ngày so với lịch. Không sao cả: bài không bị bỏ qua, cứ học tiếp từ ngày " + n + ".") : null,
+      STATIC && S.published && !S.published.includes(n) ? h("div",{class:"fb info"}, errText({code:"not_published"}))
+        : h("div",{class:"row"}, h("button",{class:"btn",onclick:() => openDay(n)},"Vào học ngày " + n))));
+  }
+  const cp = plan(Math.min(n,360));
+  nodes.push(h("section",{class:"stack",style:"gap:10px"},
+    h("div",{class:"row",style:"justify-content:space-between"}, h("h3",null,"Tuần " + cp.weekNo + " · " + cp.sub_vi), h("span",{class:"muted small"}, cp.sub_en)),
+    h("div",{class:"week"}, weekDays(cp.m, cp.w).map(d => dayChip(d, P))),
+    h("p",{class:"small muted"},"Nhịp mỗi tuần: Từ vựng → Ngữ pháp → Nghe → Đọc → Nói → Viết → Ôn tập. Ngày 29 và 30 mỗi tháng là ôn tập và kiểm tra tháng.")));
+  nodes.push(STATIC ? aiOnlyCard(true) : h("div",{class:"card flat row",style:"justify-content:space-between"},
+    h("div",null, h("b",null,"Luyện thêm mỗi ngày"), h("p",{class:"small muted"},"Hội thoại với người bản ngữ, sửa bài viết, 30 từ theo chủ đề, luyện phát âm.")),
+    h("button",{class:"btn quiet",onclick:() => go("tools")},"Mở công cụ")));
+  mount(nodes);
+}
+
+function onboarding(){
+  const ob = lsGet("onboard") || {goal:GOALS[0], minutes:"30", field:""};
+  const save = () => lsSet("onboard", ob);
+  const goal = h("select",{id:"obGoal", onchange:e => {ob.goal=e.target.value; save();}}, GOALS.map(g => h("option",{value:g, selected:g===ob.goal?true:null}, g)));
+  const mins = h("select",{id:"obMin", onchange:e => {ob.minutes=e.target.value; save();}}, ["15","30","45","60"].map(m => h("option",{value:m, selected:m===ob.minutes?true:null}, m + " phút/ngày")));
+  const field = h("input",{type:"text", id:"obField", value:ob.field, placeholder:"VD: xây dựng, BIM, kế toán…", oninput:e => {ob.field=e.target.value; save();}});
+  const lvl = h("select",{id:"obLevel"}, LEVELS.slice(0,8).map(l => h("option",{value:l}, l + " · " + LEVEL_VI[l])));
+  const skipBox = h("div",{class:"stack",hidden:true,style:"gap:10px"},
+    h("label",{class:"field"},"Trình độ bạn tự đánh giá", lvl),
+    h("div",{class:"row"}, h("button",{class:"btn",onclick:async () => { await createProfile({level:lvl.value, why:"Tự chọn trình độ"}); go("today"); render(); }},"Bắt đầu lộ trình")));
+  return h("div",{class:"stack"},
+    h("div",{class:"stack",style:"gap:8px"}, h("div",{class:"eyebrow"},"Bắt đầu"),
+      h("h1",null,"Chào bạn! Mình là cô Linh, gia sư tiếng Anh của bạn."),
+      h("p",{class:"muted"},"Mỗi ngày app mở một bài học mới theo lộ trình 360 ngày, đúng trình độ của bạn. Bạn làm bài ngay trên app, cô Linh chấm điểm, sửa lỗi và tự điều chỉnh độ khó.")),
+    h("div",{class:"card stack"},
+      h("h3",null,"Vài thông tin để lập lộ trình"),
+      h("div",{class:"row",style:"align-items:flex-start"}, h("label",{class:"field"},"Mục tiêu chính", goal), h("label",{class:"field"},"Thời gian học", mins)),
+      h("label",{class:"field"},"Lĩnh vực công việc (để chọn ví dụ phù hợp)", field),
+      h("hr",{class:"sep"}),
+      h("p",null,"Bước tiếp theo là bài kiểm tra trình độ gồm 6 phần: từ vựng, ngữ pháp, đọc, nghe, viết, nói. Mất khoảng 25–30 phút."),
+      h("div",{class:"row"}, h("button",{class:"btn",onclick:startPlacement},"Làm bài kiểm tra trình độ"),
+        h("button",{class:"btn ghost",onclick:() => skipBox.hidden = !skipBox.hidden},"Bỏ qua, tự chọn trình độ")),
+      skipBox),
+    backupCard(true),
+    h("p",{class:"small muted"}, Store.mode === "cloud" ? "Tiến độ được lưu vào tài khoản Claude của bạn. Mở app trên điện thoại hay máy tính đều học tiếp được." : (STATIC ? "Tiến độ lưu trên trình duyệt này. Sang máy khác: Tiến độ → Sao lưu, rồi Khôi phục ở máy kia." : "Đang lưu trên trình duyệt này. Mở app trên claude.ai khi đã đăng nhập để đồng bộ giữa máy tính và điện thoại.")));
+}
+
+async function createProfile({level, why, placement}){
+  const ob = lsGet("onboard") || {};
+  const old = S.profile;
+  if (old){
+    const patch = {level, levelHistory:[...(old.levelHistory||[]), {d:today(), l:level, why}]};
+    if (placement) patch.placement = placement;
+    if (placement?.focus) patch.focus = placement.focus;
+    deepMerge(S.profile, patch); await Store.patch("profile", patch); return;
+  }
+  const P = {v:1, startDate:today(), level, goal:ob.goal || GOALS[0], minutes:Number(ob.minutes||30), field:ob.field||"",
+    difficulty:0, done:{}, mistakes:[], streak:0, lastDate:null, levelHistory:[{d:today(), l:level, why}],
+    placement:placement||null, focus:placement?.focus||[]};
+  S.profile = P; await Store.set("profile", P);
+}
+
+/* ============================== LESSON GENERATION ============================== */
+const SCHEMA = `OUTPUT: only one JSON object: {"title":"English title","goal_vi":"mục tiêu bài học (1 câu tiếng Việt)","blocks":[BLOCK, ...]}
+BLOCK is one of:
+{"kind":"note","title":"...","text_vi":"giải thích ngắn bằng tiếng Việt, **in đậm** được phép","examples":[{"en":"...","vi":"..."}],"after":false}
+{"kind":"vocab","words":[{"w":"word or phrase","ipa":"/.../","pos":"n.|v.|adj.|adv.|phr.","vi":"nghĩa","ex":"example sentence","ex_vi":"dịch","col":["common collocation"],"use_vi":"cách dùng khi giao tiếp"}]}
+{"kind":"reading","title":"...","text":"paragraphs separated by \\n\\n"}
+{"kind":"listening","title":"...","script":"A: line\\nB: line"}
+{"kind":"pron","items":[{"s":"sentence","ipa":"/.../","stress":"the sentence with STRESSED syllables in capitals","tone":"ngữ điệu (lên/xuống, ở đâu)","pitfalls_vi":"âm người Việt dễ sai","tip_vi":"mẹo luyện"}]}
+{"kind":"q","type":"mcq","skill":"S","q":"...","opts":["...","..."],"ans":0,"why_vi":"..."}
+{"kind":"q","type":"fill","skill":"S","q":"sentence with one ___ blank","ans":["accepted answer","other accepted form"],"hint":"optional hint","why_vi":"..."}
+{"kind":"q","type":"order","skill":"S","words":["shuffled","words","of","one","sentence."],"ans":"The correct sentence.","why_vi":"..."}
+{"kind":"q","type":"dict","skill":"listening","text":"a sentence to dictate (8-16 words, no digits)"}
+{"kind":"q","type":"write","skill":"writing","q":"writing task","min":80,"model":"model answer","check_vi":["tiêu chí tự kiểm tra"]}
+{"kind":"q","type":"speak","skill":"speaking","q":"question or situation to answer aloud","model":"model answer, 3-5 sentences","check_vi":["tiêu chí tự kiểm tra"]}
+S (skill) is one of: vocab, grammar, reading, listening, writing, speaking.
+A block with "after":true is shown only after the learner submits (use it for answer-revealing tips).`;
+
+function typeSpec(p){
+  const L = S.profile.level;
+  const wmin = ["A1","A2"].includes(L) ? 50 : ["A2+","B1"].includes(L) ? 90 : 150;
+  const weeks = p.M.weeks.map((w,i) => `Week ${i+1}: ${w[1]} (grammar: ${w[2]})`).join("; ");
+  return ({
+    vocab:`VOCABULARY day. Blocks: 1 short note (how to learn and use today's words, 2-3 lines), 1 vocab block with 15 useful words/phrases for the week topic (mix verbs, nouns, adjectives and collocations useful in real conversations and at work), then 10 questions: 4 mcq (meaning/usage), 4 fill (collocations in context), 2 order.`,
+    grammar:`GRAMMAR day on the week's grammar focus. 1 note block: clear explanation in Vietnamese (form, use, signal words, typical mistakes of Vietnamese learners) with 5 examples set in the week topic. Then 12 questions: 5 fill, 4 mcq, 3 order. If the grammar point is below the learner's level, teach its advanced uses and nuances instead of basics.`,
+    listening:`LISTENING day. 1 listening block: a natural dialogue between two speakers labelled A and B, 120-220 words depending on level, about the week topic. Then 6 mcq questions (skill listening: gist, details, inference) that do not quote the script, then 3 dict items with sentences from the dialogue. Then 1 note block with "after":true listing 5 useful expressions from the dialogue (examples en/vi).`,
+    reading:`READING day. 1 reading block (180-350 words depending on level): an email, article, report or story about the week topic. Then 6 questions about the text (mcq; include 2 True/False/Not Given as mcq with opts ["True","False","Not Given"]), 3 vocabulary-in-context questions (mcq or fill), then 1 note block with "after":true explaining 5 useful phrases from the text.`,
+    speaking:`SPEAKING & PRONUNCIATION day. 1 pron block with 6 sentences on the week topic targeting sounds Vietnamese speakers often get wrong (final consonants, /θ ð/, /ʃ ʒ/, /r l/, consonant clusters, word stress, linking). 1 note block with useful phrases for today's speaking situations (examples en/vi). Then 2 mcq on word stress or pronunciation (skill speaking), then 4 speak questions: 2 personal questions and 2 workplace role-play situations, each answerable in 3-6 sentences.`,
+    writing:`WRITING day. 1 note block: a short model text (email, paragraph or report of 80-150 words related to the week topic, given as one "en" example with its "vi" translation) plus structure and useful phrases explained in Vietnamese. Then 4 fill questions (linking words / formal phrases), 2 order, then 1 write task of at least ${wmin} words about a realistic situation for the week topic.`,
+    weekReview:`WEEKLY REVIEW of this week (topic, vocabulary, grammar) plus the learner's recent mistakes. 1 note block (4-5 key points of the week in Vietnamese). Then: 5 vocab questions (mcq/fill), 5 grammar questions (fill/order), 1 reading block of about 120 words followed by 2 mcq, 1 dict, 1 speak, 1 write (min 50 words).`,
+    monthReview:`MONTHLY REVIEW of the month "${p.M.en}". ${weeks}. 1 note block summarising the month's grammar in Vietnamese with examples, then 20 mixed questions (mcq, fill, order) covering all four weeks evenly, plus 1 speak.`,
+    monthTest:`MONTHLY TEST for the month "${p.M.en}". ${weeks}. No teaching notes before the questions. 1 reading block (about 200 words) + 4 mcq, 1 listening block (dialogue of about 150 words) + 4 mcq, 6 grammar questions, 6 vocab questions, 1 dict, 1 write (min ${Math.max(60,wmin)} words), 1 speak. At the end, 1 note block with "after":true giving study advice for next month.`,
+    extra:`PERSONAL MISTAKE REVIEW. 1 note block explaining in Vietnamese the main error patterns found in the learner's mistakes, then 12 questions (mcq, fill, order) that target exactly those patterns, in new sentences.`
+  })[p.type];
+}
+function lessonPrompt(p){
+  const P = S.profile;
+  const diff = P.difficulty > 0 ? " (scores are high: make it noticeably harder)" : P.difficulty < 0 ? " (scores are low: make it a bit easier with more support)" : "";
+  const mist = (P.mistakes||[]).slice(-15).map(m => `- [${m.t}] ${m.q} → correct: ${m.a}`).join("\n") || "none yet";
+  return `You are "Cô Linh", an expert English teacher writing ONE lesson of a 360-day course for a Vietnamese adult learner.
+LEARNER: CEFR level ${P.level}${diff}. Goal: ${P.goal}. Field of work: ${P.field || "not specified"}. Study time: about ${P.minutes} minutes per day.
+Focus areas from the placement test: ${(P.focus||[]).join(", ") || "none"}.
+Recent mistakes:
+${mist}
+COURSE POSITION: Day ${p.day}/360. Month ${p.m}: "${p.M.en}". Week topic: "${p.sub_en}". Grammar focus this week: "${p.grammar}". Week goal: ${p.can}
+TODAY: ${typeSpec(p)}
+RULES:
+- English content pitched at ${P.level}, slightly challenging. Use realistic situations, including the learner's field of work where natural.
+- Explanations, meanings and feedback in Vietnamese. IPA in American English between slashes.
+- Every objective question has exactly one clearly correct answer; for "fill" list every acceptable answer.
+- "order": words of ONE sentence, shuffled, punctuation attached to its word.
+- Keep the whole JSON under 10000 characters.
+${SCHEMA}`;
+}
+function cleanLesson(L){
+  if (!L || !Array.isArray(L.blocks)) throw {code:"invalid_json"};
+  const blocks = L.blocks.filter(b => {
+    if (!b || typeof b !== "object") return false;
+    if (b.kind !== "q") return ["note","vocab","reading","listening","pron"].includes(b.kind);
+    if (!SKILLS[b.skill]) b.skill = b.type === "dict" ? "listening" : b.type === "write" ? "writing" : b.type === "speak" ? "speaking" : "grammar";
+    switch (b.type){
+      case "mcq": return Array.isArray(b.opts) && b.opts.length >= 2 && Number.isInteger(b.ans) && b.ans >= 0 && b.ans < b.opts.length;
+      case "fill": b.ans = [].concat(b.ans || []).map(String).filter(Boolean); return !!b.q && b.ans.length > 0;
+      case "order": return Array.isArray(b.words) && b.words.length > 1 && !!b.ans;
+      case "dict": return !!b.text;
+      case "write": case "speak": return !!b.q;
+      default: return false;
+    }
+  });
+  if (!blocks.some(b => b.kind === "q")) throw {code:"invalid_json"};
+  return {title:String(L.title||""), goal_vi:String(L.goal_vi||""), blocks};
+}
+async function generate(p, statusEl){
+  if (STATIC){ const d = await fetchJSON(dayKey(p.day) + ".json"); return cleanLesson(d.lesson || d); }
+  const raw = await AI.json(lessonPrompt(p), {onText:({text}) => { if (statusEl) statusEl.textContent = "Cô Linh đang soạn bài… (" + text.length.toLocaleString("vi-VN") + " ký tự)"; }});
+  return cleanLesson(raw);
+}
+
+async function openDay(n, review){
+  const p = plan(n), key = dayKey(n);
+  S.lesson = null; S.view = "lesson"; setHash("lesson");
+  renderNav();
+  const status = h("div", null, "Đang mở bài ngày " + n + "…");
+  mount(h("div",{class:"loading"}, h("span",{class:"spinner"}), status));
+  let doc = await Store.get(key);
+  if (!review && doc?.results && !S.profile?.done?.[n]) doc = null; // left over from a reset roadmap: make a fresh lesson
+  if (STATIC && !review && !doc?.results) doc = null; // take the latest posted version
+  if (!doc?.lesson){
+    if (review){ mount(h("div",{class:"card stack"}, h("p",null,"Không tìm thấy nội dung bài ngày " + n + "."), h("div",{class:"row"}, h("button",{class:"btn",onclick:() => go("today")},"Về trang chính")))); return; }
+    try {
+      status.textContent = (STATIC ? "Đang tải bài ngày " : "Cô Linh đang soạn bài ngày ") + n + "…";
+      const lesson = await generate(p, status);
+      doc = {day:n, type:p.type, createdAt:new Date().toISOString(), lesson};
+      await Store.set(key, doc);
+    } catch (e){
+      mount(h("div",{class:"card stack"}, h("h2",null,"Chưa soạn được bài"), h("p",null, errText(e)),
+        h("div",{class:"row"}, h("button",{class:"btn",onclick:() => openDay(n)},"Thử lại"), h("button",{class:"btn ghost",onclick:() => go("today")},"Về trang chính"))));
+      return;
+    }
+  }
+  S.lesson = {kind:"day", key, n, p, doc, lesson:doc.lesson, answers:doc.answers || lsGet("draft:"+key) || {}, results:doc.results || null, score:doc.score, skills:doc.skills, plays:{}};
+  renderLesson();
+}
+function startPlacement(){
+  const key = "placement";
+  const draft = lsGet("draft:"+key);
+  if (!draft) lsSet("plays:placement", null);
+  S.lesson = {kind:"placement", key, lesson:PLACEMENT, answers:draft || {}, results:null, plays:(draft && lsGet("plays:placement")) || {}};
+  go("lesson");
+}
+async function openMistakeReview(){
+  const P = S.profile, base = plan(Math.min(progressInfo(P).next, 360));
+  const p = {...base, type:"extra"};
+  S.lesson = null; S.view = "lesson"; setHash("lesson"); renderNav();
+  const status = h("div", null, "Cô Linh đang soạn bài ôn lỗi sai…");
+  mount(h("div",{class:"loading"}, h("span",{class:"spinner"}), status));
+  try {
+    const lesson = await generate(p, status);
+    S.lesson = {kind:"extra", key:"extra", p, lesson, answers:{}, results:null, plays:{}};
+    renderLesson();
+  } catch (e){
+    mount(h("div",{class:"card stack"}, h("p",null, errText(e)), h("div",{class:"row"}, h("button",{class:"btn",onclick:openMistakeReview},"Thử lại"))));
+  }
+}
+
+/* ============================== LESSON RENDER ============================== */
+let draftT;
+function saveDraft(){ clearTimeout(draftT); draftT = setTimeout(() => { if (S.lesson && !S.lesson.results) lsSet("draft:"+S.lesson.key, S.lesson.answers); }, 400); }
+
+function renderLesson(){
+  const L = S.lesson; if (!L) return go("today");
+  const done = !!L.results, blocks = L.lesson.blocks;
+  const nodes = [];
+  const head = h("div",{class:"lesson-head"});
+  if (L.kind === "day"){
+    head.append(h("div",{class:"row"}, h("button",{class:"btn quiet sm",onclick:() => go("today")},"← Trang chính"),
+      h("span",{class:"chip accent"},"Ngày " + L.n), h("span",{class:"chip"}, TYPES[L.p.type].vi), h("span",{class:"chip"}, "Tuần " + L.p.weekNo + " · " + L.p.sub_vi)));
+  } else head.append(h("div",{class:"row"}, h("button",{class:"btn quiet sm",onclick:() => go("today")},"← Trang chính"), h("span",{class:"chip mark"}, L.kind === "placement" ? "Kiểm tra trình độ" : "Bài luyện thêm")));
+  head.append(h("h1",null, L.lesson.title || "Bài học"));
+  if (L.lesson.goal_vi) head.append(h("p",{class:"muted"}, L.lesson.goal_vi));
+  nodes.push(head);
+  if (done) nodes.push(resultSummary(L));
+
+  let qn = 0;
+  blocks.forEach((b, i) => {
+    if (b.after && !done) return;
+    if (b.kind === "q"){ qn++; nodes.push(renderQ(b, i, qn, done)); }
+    else nodes.push(renderBlock(b, i, done));
+  });
+
+  if (!done){
+    const total = blocks.filter(b => b.kind === "q").length;
+    const count = h("div",{class:"small muted"});
+    const upd = () => { const a = Object.keys(L.answers).filter(k => { const v = L.answers[k]; return Array.isArray(v) ? v.length : v !== "" && v != null; }).length; count.textContent = "Đã làm " + a + "/" + total + " câu"; };
+    L.onAnswer = () => { upd(); saveDraft(); };
+    upd();
+    const btn = h("button",{class:"btn",id:"submitBtn",onclick:() => submitLesson(btn)},"Nộp bài");
+    nodes.push(h("div",{class:"submitbar"}, h("div",{class:"grow"}, h("b",null,"Nộp bài để chấm điểm"), count), btn));
+  } else {
+    nodes.push(h("div",{class:"row"}, h("button",{class:"btn",onclick:() => go("today")},"Về trang chính"),
+      L.kind === "day" ? h("button",{class:"btn ghost",onclick:() => go("progress")},"Xem tiến độ") : null));
+  }
+  mount(nodes);
+}
+
+function renderBlock(b, i, done){
+  switch (b.kind){
+    case "note": {
+      const el = h("div",{class:"note" + (b.sec ? " sec" : "")});
+      if (b.title) el.append(h(b.sec ? "h2" : "h3", null, b.title));
+      if (b.text_vi) el.append(h("p",{style:b.title ? "margin-top:6px" : null}, rich(b.text_vi)));
+      if (Array.isArray(b.examples) && b.examples.length){
+        const ex = h("div",{style:"margin-top:8px"});
+        b.examples.forEach(e => ex.append(h("div",{class:"ex"}, h("div",{class:"row",style:"gap:6px;align-items:flex-start;flex-wrap:nowrap"}, sayBtn(e.en), h("span",{style:"min-width:0"}, rich(e.en))), e.vi ? h("div",{class:"vi"}, e.vi) : null)));
+        el.append(ex);
+      }
+      return el;
+    }
+    case "vocab": return vocabBlock(b.words || []);
+    case "reading": return h("article",{class:"reading"}, b.title ? h("h3",{style:"margin-bottom:10px"}, b.title) : null, String(b.text||"").split(/\n\s*\n/).map(p => h("p",null,p)));
+    case "listening": return listeningBlock(b, i, done);
+    case "pron": return pronBlock(b.items || []);
+  }
+  return h("div");
+}
+function sayBtn(text, label="Nghe", rate){
+  if (!Voice.ok()) return null;
+  return h("button",{type:"button",class:"btn ghost sm","aria-label":"Nghe: " + text,onclick:() => Voice.say(text, rate)}, label);
+}
+function vocabBlock(list){
+  const grid = h("div",{class:"vgrid"});
+  list.forEach(w => {
+    const card = h("div",{class:"vcard"},
+      h("div",{class:"w"}, h("b",null,w.w), w.pos ? h("span",{class:"pos"},w.pos) : null, w.ipa ? h("span",{class:"ipa"},w.ipa) : null),
+      h("div",{class:"mean"}, w.vi || ""),
+      w.ex ? h("div",null, rich(w.ex)) : null,
+      w.ex_vi ? h("div",{class:"small muted exvi"}, w.ex_vi) : null,
+      Array.isArray(w.col) && w.col.length ? h("div",{class:"col"}, w.col.map(c => h("span",null,c))) : null,
+      w.use_vi ? h("div",{class:"small muted"}, w.use_vi) : null,
+      h("div",{class:"row",style:"gap:6px"}, sayBtn(w.w), w.ex ? sayBtn(w.ex, "Câu ví dụ") : null));
+    card.addEventListener("click", e => { if (e.target.closest(".mean,.exvi")) card.classList.add("peek"); });
+    grid.append(card);
+  });
+  const toggle = h("button",{type:"button",class:"btn quiet sm",onclick:() => { wrap.classList.toggle("hide-mean"); toggle.textContent = wrap.classList.contains("hide-mean") ? "Hiện nghĩa" : "Che nghĩa để tự kiểm tra"; }},"Che nghĩa để tự kiểm tra");
+  const wrap = h("div",{class:"block"}, h("div",{class:"row",style:"justify-content:space-between"}, h("h3",null, list.length + " từ vựng"), toggle), grid);
+  return wrap;
+}
+function listeningBlock(b, i, done){
+  const L = S.lesson, max = b.plays || 0;
+  const used = () => L.plays[i] || 0;
+  const cnt = h("span",{class:"small muted"});
+  const upd = () => { cnt.textContent = max ? "Đã nghe " + used() + "/" + max + " lần" : (used() ? "Đã nghe " + used() + " lần" : ""); };
+  const play = (rate) => {
+    if (!done && max && used() >= max) return toast("Đã hết lượt nghe đoạn này.");
+    L.plays[i] = used() + 1; if (L.kind === "placement") lsSet("plays:placement", L.plays); upd();
+    if (max && used() >= max && !done) { playBtn.disabled = true; slowBtn.disabled = true; }
+    Voice.say(scriptLines(b.script), rate);
+  };
+  const playBtn = h("button",{type:"button",class:"btn sm",onclick:() => play()},"Nghe");
+  const slowBtn = h("button",{type:"button",class:"btn ghost sm",onclick:() => play(0.8)},"Nghe chậm");
+  if (!done && max && used() >= max){ playBtn.disabled = true; slowBtn.disabled = true; }
+  upd();
+  const el = h("div",{class:"block"},
+    h("div",{class:"player"}, h("b",{style:"margin-right:auto"}, b.title || "Bài nghe"), playBtn, slowBtn, h("button",{type:"button",class:"btn quiet sm",onclick:() => Voice.stop()},"Dừng"), cnt));
+  if (!Voice.ok()) el.append(h("p",{class:"small muted"},"Thiết bị không phát được âm thanh. Lời thoại hiện bên dưới."));
+  if (done || !Voice.ok()) el.append(h("div",{class:"script"}, b.script));
+  return el;
+}
+function pronBlock(items){
+  return h("div",{class:"block"}, h("h3",null,"Luyện phát âm"),
+    !Mic.d ? h("p",{class:"small muted"},"Muốn được chấm phát âm, hãy mở app bằng Chrome/Edge hoặc app Claude trên máy tính. Trên điện thoại bạn vẫn nghe mẫu và đọc theo được.") : null,
+    items.map(it => {
+      const out = h("div");
+      const live = h("div",{class:"live-txt"});
+      let said = "";
+      const mic = Mic.button(t => { said += " " + t; showPron(out, it.s, said); }, t => live.textContent = t, "Đọc thử", () => { said = ""; out.replaceChildren(); });
+      return h("div",{class:"pron"},
+        h("div",{class:"s"}, it.s),
+        it.ipa ? h("div",{class:"ipa"}, it.ipa) : null,
+        h("dl",null,
+          it.stress ? [h("dt",null,"Trọng âm"), h("dd",null,it.stress)] : null,
+          it.tone ? [h("dt",null,"Ngữ điệu"), h("dd",null,it.tone)] : null,
+          it.pitfalls_vi ? [h("dt",null,"Dễ sai"), h("dd",null,it.pitfalls_vi)] : null,
+          it.tip_vi ? [h("dt",null,"Mẹo"), h("dd",null,it.tip_vi)] : null),
+        h("div",{class:"row",style:"gap:6px"}, sayBtn(it.s), sayBtn(it.s, "Nghe chậm", 0.75), mic), live, out);
+    }));
+}
+function showPron(out, target, said){
+  const r = compareText(target, said);
+  const pct = Math.round(r.score*100);
+  out.replaceChildren(h("div",{class:"fb " + (pct >= 80 ? "ok" : pct >= 50 ? "info" : "no")},
+    h("div",null, h("span",{class:"lbl"}, "Máy nghe được: "), said.trim() || "(không nghe rõ)"),
+    h("div",{class:"diff"}, r.tokens.map((t,k) => h("span",{class:r.tokHit[k] ? "hit" : "miss"}, t + " "))),
+    h("div",null, h("b",null, pct + "% khớp. "), pct >= 80 ? "Rất tốt!" : "Các từ gạch dưới máy chưa nhận ra. Nghe lại mẫu và tập riêng các từ đó.")));
+}
+
+function renderQ(b, i, n, done){
+  const L = S.lesson, a = L.answers[i], r = L.results?.[i];
+  const box = h("div",{class:"q" + (done && r && r.score != null ? (r.score >= 0.7 ? " ok" : " no") : "")});
+  const set = v => { L.answers[i] = v; L.onAnswer?.(); };
+  const qtext = b.type === "dict" ? "Nghe và chép lại chính xác câu sau." : b.type === "order" ? "Sắp xếp thành câu đúng." : b.q;
+  box.append(h("div",{class:"qh"}, h("span",{class:"qn"}, n + "."), h("div",{class:"qt"}, rich(qtext), b.hint && !done ? h("div",{class:"small muted"},"Gợi ý: " + b.hint) : null)));
+
+  if (b.type === "mcq"){
+    const opts = h("div",{class:"opts"});
+    b.opts.forEach((o, k) => {
+      let cls = "opt";
+      if (done){ if (k === b.ans) cls += " right"; else if (k === a) cls += " wrong"; }
+      else if (k === a) cls += " sel";
+      const btn = h("button",{type:"button",class:cls,disabled:done ? true : null,"aria-pressed":k===a?"true":"false",onclick:() => { set(k); opts.querySelectorAll(".opt").forEach((x,j) => { x.classList.toggle("sel", j===k); x.setAttribute("aria-pressed", j===k); }); }},
+        h("b",{style:"margin-right:6px;color:var(--muted)"}, "ABCDEFG"[k]), o);
+      opts.append(btn);
+    });
+    box.append(opts);
+    if (done) box.append(fbObjective(r, b.opts[b.ans], b.why_vi));
+  }
+  else if (b.type === "fill"){
+    const inp = h("input",{type:"text",id:"q"+i,value:a || "",disabled:done ? true : null,autocomplete:"off",autocapitalize:"off",spellcheck:"false",placeholder:"Điền đáp án",oninput:e => set(e.target.value)});
+    box.append(inp);
+    if (done) box.append(fbObjective(r, b.ans.join(" / "), b.why_vi));
+  }
+  else if (b.type === "order"){
+    const chosen = Array.isArray(a) ? a.slice() : [];
+    const built = h("div",{class:"built","aria-label":"Câu của bạn"}), pool = h("div",{class:"pool"});
+    const draw = () => {
+      built.replaceChildren(...chosen.map((k, pos) => h("button",{type:"button",class:"wchip",disabled:done?true:null,onclick:() => { chosen.splice(pos,1); set(chosen.slice()); draw(); }}, b.words[k])));
+      if (!chosen.length) built.append(h("span",{class:"small muted",style:"padding:6px"}, done ? "(bỏ trống)" : "Chạm vào các từ bên dưới theo đúng thứ tự"));
+      pool.replaceChildren(...b.words.map((w,k) => chosen.includes(k) || done ? null : h("button",{type:"button",class:"wchip",onclick:() => { chosen.push(k); set(chosen.slice()); draw(); }}, w)).filter(Boolean));
+    };
+    draw();
+    box.append(built, pool);
+    if (done) box.append(fbObjective(r, b.ans, b.why_vi));
+  }
+  else if (b.type === "dict"){
+    const max = b.plays || 3, used = () => L.plays["d"+i] || 0;
+    const cnt = h("span",{class:"small muted"}, used() ? "Đã nghe " + used() + "/" + max : "");
+    const pb = h("button",{type:"button",class:"btn sm",disabled:(!done && used() >= max) ? true : null,onclick:() => {
+      if (!done && used() >= max) return;
+      L.plays["d"+i] = used() + 1; if (L.kind === "placement") lsSet("plays:placement", L.plays);
+      cnt.textContent = "Đã nghe " + used() + "/" + max; if (!done && used() >= max) pb.disabled = true;
+      Voice.say(b.text, Math.min(S.rate, 0.95));
+    }},"Nghe câu");
+    box.append(h("div",{class:"row",style:"gap:8px"}, pb, cnt));
+    if (!Voice.ok() && !done) box.append(h("p",{class:"small muted"},"Thiết bị không phát được âm thanh, có thể bỏ qua câu này."));
+    box.append(h("input",{type:"text",id:"q"+i,value:a || "",disabled:done?true:null,autocomplete:"off",spellcheck:"false",placeholder:"Gõ lại câu bạn nghe được",oninput:e => set(e.target.value)}));
+    if (done && r){
+      const cmp = compareText(b.text, a || "");
+      box.append(h("div",{class:"fb " + (r.score >= 0.9 ? "ok" : "no")},
+        h("div",null, h("span",{class:"lbl"}, Math.round(r.score*100) + "% chính xác. "), "Câu gốc (từ gạch dưới là bạn chép thiếu hoặc sai):"),
+        h("div",{class:"diff"}, cmp.tokens.map((t,k) => h("span",{class:cmp.tokHit[k] ? "hit" : "miss"}, t + " "))),
+        h("div",{class:"row"}, sayBtn(b.text))));
+    }
+  }
+  else if (b.type === "write" || b.type === "speak"){
+    const ta = h("textarea",{id:"q"+i,disabled:done?true:null,placeholder:b.type === "speak" ? "Bấm Nói để trả lời bằng giọng nói, hoặc gõ như đang nói…" : "Viết câu trả lời bằng tiếng Anh…",oninput:e => { set(e.target.value); wc.textContent = wordCount(e.target.value) + " từ" + (b.min ? " / tối thiểu " + b.min : ""); }}, a || "");
+    const wc = h("span",{class:"wc"}, wordCount(a) + " từ" + (b.min ? " / tối thiểu " + b.min : ""));
+    const live = h("div",{class:"live-txt"});
+    box.append(ta);
+    if (!done){
+      const mic = b.type === "speak" ? Mic.button(t => { ta.value = (ta.value ? ta.value.trimEnd() + " " : "") + t; ta.dispatchEvent(new Event("input")); }, t => live.textContent = t) : null;
+      box.append(live, h("div",{class:"row",style:"justify-content:space-between"}, wc, mic));
+      if (b.type === "speak" && !Mic.d) box.append(h("p",{class:"small muted"},"Trên điện thoại: chạm vào ô trả lời rồi bấm biểu tượng micro trên bàn phím để nói."));
+    }
+    if (done) box.append(...[fbOpen(r), modelBox(b)].filter(Boolean));
+  }
+  return box;
+}
+function fbObjective(r, right, why){
+  if (!r) return null;
+  const ok = r.score >= 1;
+  return h("div",{class:"fb " + (ok ? "ok" : "no")},
+    h("div",null, h("span",{class:"lbl"}, ok ? "Đúng. " : "Chưa đúng. "), ok ? null : ["Đáp án: ", h("b",null,right)]),
+    why ? h("div",null, rich(why)) : null);
+}
+function modelBox(b){
+  if (!b.model) return null;
+  return h("div",{class:"fb info"}, h("div",{class:"lbl"},"Bài mẫu:"), h("div",null, b.model), h("div",{class:"row",style:"margin-top:4px"}, sayBtn(b.model)),
+    (b.check_vi||[]).length ? h("ul",{style:"margin:6px 0 0;padding-left:20px"}, b.check_vi.map(c => h("li",null,c))) : null);
+}
+function fbOpen(r){
+  if (!r) return null;
+  if (r.self) return h("div",{class:"fb info"}, h("span",{class:"lbl"}, (r.score == null ? "Tự kiểm tra" : "Điểm hoàn thành " + Math.round(r.score*100) + "%") + " · " + r.wc + " từ"),
+    h("p",{class:"small"},"Bản này không có cô Linh chấm trực tiếp: so bài của bạn với bài mẫu. Muốn được sửa chi tiết, chép bài vào Luyện thêm → Sửa bài viết trên app claude.ai."));
+  if (r.empty) return h("div",{class:"fb no"},"Bạn chưa trả lời câu này.");
+  if (r.error || !r.fb) return h("div",{class:"fb info"}, r.error || "Chưa chấm được câu này.");
+  const f = r.fb;
+  return h("div",{class:"fb " + (f.score >= 7 ? "ok" : "info")},
+    h("div",{class:"row",style:"gap:8px"}, h("span",{class:"lbl"}, "Điểm: " + f.score + "/10"), f.comment_vi ? h("span",null, f.comment_vi) : null),
+    Array.isArray(f.errors) && f.errors.length ? h("div",null, f.errors.map(e => h("div",{class:"err"}, h("div",null, h("s",null,e.wrong), " → ", h("ins",null,e.right)), e.why_vi ? h("div",{class:"small"}, e.why_vi) : null))) : null,
+    f.better ? h("div",null, h("div",{class:"lbl"},"Cách nói tự nhiên hơn:"), h("div",null,f.better), h("div",{class:"row",style:"margin-top:4px"}, sayBtn(f.better))) : null);
+}
+function resultSummary(L){
+  const sk = L.skills || {};
+  const card = h("div",{class:"card stack"},
+    h("div",{class:"row",style:"gap:16px"}, h("div",{class:"scorebig"}, (L.score ?? "–") + "%"),
+      h("div",null, h("b",null, L.score >= 85 ? "Xuất sắc!" : L.score >= 70 ? "Tốt lắm!" : L.score >= 50 ? "Khá, cần ôn thêm." : "Cần ôn lại kỹ."),
+        h("p",{class:"small muted"},"Xem phản hồi từng câu bên dưới. Lỗi sai được ghi lại để đưa vào bài ôn tập."))),
+    Object.keys(sk).length ? h("div",{class:"bars"}, Object.entries(sk).map(([k,v]) => barRow(SKILLS[k]||k, v))) : null);
+  if (L.kind === "placement" && L.report) card.append(placementReport(L.report));
+  if (L.levelMsg) card.append(h("div",{class:"fb info"}, L.levelMsg));
+  return card;
+}
+function barRow(label, v, sub){ return h("div",{class:"bar"}, h("span",null,label, sub ? h("small",{class:"muted",style:"display:block;font-size:.72rem"}, sub) : null),h("div",{class:"track"}, h("div",{class:"fill",style:"width:" + clamp(v||0,0,100) + "%"})), h("em",null, v == null ? "–" : v + "%")); }
+
+/* ============================== GRADING ============================== */
+async function gradeOpen(items, level){
+  const tasks = items.map(({i,b,a}) => `[id ${i}] (${b.type === "write" ? "writing" + (b.min ? ", min " + b.min + " words" : "") : "speaking, typed or transcribed from speech: ignore punctuation and capitals"})\nTask: ${b.q}\nAnswer: """${String(a).slice(0,3000)}"""`).join("\n\n");
+  const out = await AI.json(`You are "Cô Linh", an encouraging but precise English teacher grading a Vietnamese learner (CEFR ${level}).
+Grade each answer 0-10 for task completion, grammar, vocabulary and coherence/naturalness. List the real errors (max 8 per answer).
+Return only a JSON array: [{"i":<id>,"score":<0-10>,"errors":[{"wrong":"exact fragment","right":"correction","why_vi":"giải thích ngắn"}],"better":"a natural corrected version, slightly above the learner's level","comment_vi":"1-2 câu: điểm tốt và điều cần cải thiện"}]
+
+${tasks}`);
+  return Array.isArray(out) ? out : (out?.results || []);
+}
+function aggregate(blocks, results){
+  let sum = 0, wsum = 0; const sk = {};
+  blocks.forEach((b,i) => {
+    const r = results[i]; if (b.kind !== "q" || !r || r.score == null) return;
+    const w = (b.type === "write" || b.type === "speak") && !r.self ? 2 : 1;
+    sum += r.score*w; wsum += w;
+    (sk[b.skill] ||= [0,0]); sk[b.skill][0] += r.score*w; sk[b.skill][1] += w;
+  });
+  const skills = {}; for (const [k,[s,w]] of Object.entries(sk)) skills[k] = Math.round(100*s/w);
+  return {score: wsum ? Math.round(100*sum/wsum) : 0, skills};
+}
+async function submitLesson(btn){
+  const L = S.lesson, blocks = L.lesson.blocks;
+  const total = blocks.filter(b => b.kind === "q").length;
+  const answered = Object.keys(L.answers).length;
+  if (answered < total && !btn.dataset.sure){
+    btn.dataset.sure = "1"; btn.textContent = "Vẫn nộp (" + (total-answered) + " câu trống)";
+    return;
+  }
+  Mic.d && Mic.active && Mic.d.stop().catch(() => {});
+  Voice.stop();
+  btn.disabled = true; btn.replaceChildren(h("span",{class:"spinner"}), " Đang chấm…");
+  const results = {}, open = [];
+  blocks.forEach((b,i) => {
+    if (b.kind !== "q") return;
+    const a = L.answers[i];
+    if (b.type === "mcq") results[i] = {score: a === b.ans ? 1 : 0};
+    else if (b.type === "fill") results[i] = {score: matchAny(a, b.ans) ? 1 : 0};
+    else if (b.type === "order") results[i] = {score: Array.isArray(a) && norm(a.map(k => b.words[k]).join(" ")) === norm(b.ans) ? 1 : 0};
+    else if (b.type === "dict") results[i] = {score: a ? Math.round(compareText(b.text, a).score*100)/100 : 0};
+    else if (!a || !String(a).trim()) results[i] = {score:0, empty:true};
+    else open.push(i);
+  });
+  const level = S.profile?.level || "unknown (placement test)";
+  if (open.length && !AI.s){
+    open.splice(0).forEach(i => { const b = blocks[i], wc = wordCount(L.answers[i]);
+      results[i] = {self:true, wc, score: L.kind === "placement" ? null : Math.min(1, wc / (b.type === "write" ? (b.min || 60) : 30))}; });
+  }
+  if (open.length){
+    try {
+      const fb = await gradeOpen(open.map(i => ({i, b:blocks[i], a:L.answers[i]})), level);
+      open.forEach(i => { const f = fb.find(x => Number(x.i) === i); results[i] = f ? {score: clamp(Number(f.score)||0,0,10)/10, fb:{...f, score:clamp(Number(f.score)||0,0,10)}} : {score:null, error:"Chưa chấm được câu này."}; });
+    } catch (e){
+      open.forEach(i => results[i] = {score:null, error:"Chưa chấm được phần viết/nói: " + errText(e)});
+    }
+  }
+  const {score, skills} = aggregate(blocks, results);
+  L.results = results; L.score = score; L.skills = skills;
+  lsSet("draft:"+L.key, null);
+
+  if (L.kind === "placement") await finishPlacement(L, open);
+  else if (L.kind === "day") await finishDay(L);
+  renderLesson(); window.scrollTo(0,0);
+}
+function collectMistakes(L, day){
+  const out = [];
+  L.lesson.blocks.forEach((b,i) => {
+    const r = L.results[i]; if (b.kind !== "q" || !r || r.score == null || r.score >= 0.7) return;
+    if (b.type === "mcq") out.push({d:day, t:b.skill, q:String(b.q).slice(0,120), a:b.opts[b.ans]});
+    else if (b.type === "fill") out.push({d:day, t:b.skill, q:String(b.q).slice(0,120), a:b.ans[0]});
+    else if (b.type === "order") out.push({d:day, t:b.skill, q:"Word order", a:String(b.ans).slice(0,120)});
+    else if (b.type === "dict") out.push({d:day, t:"listening", q:"Dictation", a:String(b.text).slice(0,120)});
+    else if (r.fb?.errors?.length) r.fb.errors.slice(0,3).forEach(e => out.push({d:day, t:b.skill, q:"Wrote: " + String(e.wrong).slice(0,80), a:String(e.right).slice(0,80)}));
+  });
+  return out;
+}
+async function finishDay(L){
+  const P = S.profile, n = L.n, t = today();
+  L.doc = {...L.doc, answers:L.answers, results:L.results, score:L.score, skills:L.skills, submittedAt:new Date().toISOString()};
+  await Store.set(L.key, L.doc);
+  const patch = {done:{[n]:{s:L.score, d:t, t:L.p.type, k:L.skills}}};
+  const gap = P.lastDate ? daysBetween(P.lastDate, t) : 99;
+  patch.streak = gap === 0 ? (P.streak||1) : gap === 1 ? (P.streak||0) + 1 : 1;
+  patch.lastDate = t;
+  patch.mistakes = [...(P.mistakes||[]), ...collectMistakes(L, n)].slice(-40);
+  const recent = [...recentScores(P, 4), L.score];
+  const a5 = avg(recent);
+  let diff = P.difficulty || 0;
+  if (recent.length >= 3){ if (a5 >= 90 && diff < 2) diff++; else if (a5 < 60 && diff > -2) diff--; }
+  patch.difficulty = diff;
+  if (L.p.type === "monthTest"){
+    const idx = LEVELS.indexOf(P.level);
+    let nl = P.level, why = null;
+    if (L.score >= 85 && idx < LEVELS.length-1){ nl = LEVELS[idx+1]; why = "Kiểm tra tháng " + L.p.m + ": " + L.score + "%"; }
+    else if (L.score < 50 && idx > 0){ nl = LEVELS[idx-1]; why = "Kiểm tra tháng " + L.p.m + ": " + L.score + "% (giảm độ khó)"; }
+    if (why){ patch.level = nl; patch.levelHistory = [...(P.levelHistory||[]), {d:t, l:nl, why}]; patch.difficulty = 0;
+      L.levelMsg = nl !== P.level && LEVELS.indexOf(nl) > idx ? "Chúc mừng! Bạn được nâng trình độ lên " + nl + ". Bài học từ mai sẽ khó hơn." : "Trình độ được điều chỉnh về " + nl + " để bạn học chắc hơn."; }
+    else L.levelMsg = "Giữ trình độ " + P.level + ". Đạt từ 85% ở bài kiểm tra tháng sau để được nâng trình độ.";
+  }
+  deepMerge(P, patch);
+  await Store.patch("profile", patch);
+}
+function levelFromPct(p){ return p < 30 ? "A1" : p < 45 ? "A2" : p < 55 ? "A2+" : p < 65 ? "B1" : p < 74 ? "B1+" : p < 83 ? "B2" : p < 91 ? "B2+" : "C1"; }
+async function finishPlacement(L, open){
+  const blocks = L.lesson.blocks;
+  const answersOf = type => blocks.map((b,i) => b.kind === "q" && b.type === type ? `Task: ${b.q}\nAnswer: ${String(L.answers[i]||"(no answer)").slice(0,1200)}` : null).filter(Boolean).join("\n\n");
+  let rep = null;
+  try {
+    rep = await AI.json(`You assess a Vietnamese adult learner's English placement test (items range from A1 to C1).
+Section scores: vocabulary ${L.skills.vocab ?? 0}%, grammar ${L.skills.grammar ?? 0}%, reading ${L.skills.reading ?? 0}%, listening (incl. dictation) ${L.skills.listening ?? 0}%, writing ${L.skills.writing ?? "n/a"}%, speaking ${L.skills.speaking ?? "n/a"}%.
+Learner goal: ${(lsGet("onboard")||{}).goal || GOALS[0]}. Field: ${(lsGet("onboard")||{}).field || "n/a"}.
+WRITING:
+${answersOf("write")}
+SPEAKING (typed or transcribed):
+${answersOf("speak")}
+Return only JSON: {"level":"one of ${LEVELS.join(", ")}","skills":{"vocab":"CEFR","grammar":"CEFR","reading":"CEFR","listening":"CEFR","writing":"CEFR","speaking":"CEFR"},"strengths_vi":["2-4 điểm mạnh cụ thể"],"weaknesses_vi":["2-4 điểm yếu cụ thể, kèm ví dụ lỗi"],"advice_vi":"3-4 câu đề xuất lộ trình phù hợp","focus":["3-5 short English focus areas for the course"]}`);
+  } catch (e){ console.warn(e); }
+  const fallback = levelFromPct(L.score);
+  const level = rep && LEVELS.includes(rep.level) ? rep.level : fallback;
+  const report = {level, pct:L.score, skills:L.skills, cefr:rep?.skills || null, strengths:rep?.strengths_vi || [], weaknesses:rep?.weaknesses_vi || [], advice:rep?.advice_vi || "", focus:rep?.focus || [], date:today()};
+  L.report = report;
+  await createProfile({level, why:"Kiểm tra đầu vào (" + L.score + "%)", placement:report});
+  await Store.set("placement-result", {answers:L.answers, results:L.results, report});
+}
+function placementReport(r){
+  return h("div",{class:"stack",style:"gap:10px"},
+    h("hr",{class:"sep"}),
+    h("div",{class:"row"}, h("span",{class:"eyebrow"},"Trình độ của bạn"), h("span",{class:"chip accent",style:"font-size:.95rem"}, r.level + " · " + LEVEL_VI[r.level])),
+    r.cefr ? h("div",{class:"chips"}, Object.entries(r.cefr).map(([k,v]) => h("span",{class:"chip"}, (SKILLS[k]||k) + ": " + v))) : null,
+    r.strengths.length ? h("div",null, h("b",null,"Điểm mạnh"), h("ul",{style:"margin:4px 0 0;padding-left:20px"}, r.strengths.map(s => h("li",null,s)))) : null,
+    r.weaknesses.length ? h("div",null, h("b",null,"Điểm cần cải thiện"), h("ul",{style:"margin:4px 0 0;padding-left:20px"}, r.weaknesses.map(s => h("li",null,s)))) : null,
+    r.advice ? h("div",null, h("b",null,"Đề xuất của cô Linh"), h("p",null,r.advice)) : null,
+    h("p",{class:"small muted"},"Lộ trình 360 ngày của bạn bắt đầu từ hôm nay. Bài ngày 1 đã sẵn sàng ở trang chính."));
+}
+
+/* ============================== ROADMAP ============================== */
+function renderRoadmap(){
+  const P = S.profile;
+  const info = P ? progressInfo(P) : null;
+  const curM = info ? plan(Math.min(info.next,360)).m : 1;
+  const nodes = [h("div",{class:"stack",style:"gap:6px"}, h("div",{class:"eyebrow"},"Lộ trình 360 ngày"), h("h1",null,"12 tháng, 48 chủ đề, mỗi ngày một bài"),
+    P ? h("p",{class:"muted"},"Bắt đầu " + fmtVN(P.startDate) + " · Trình độ hiện tại " + P.level + " · Mục tiêu sau 360 ngày: " + LEVELS[Math.min(LEVELS.indexOf(P.level)+3, LEVELS.length-1)] + " · Dự kiến xong ngày " + fmtVN(addDays(P.startDate, 359))) :
+        h("p",{class:"muted"},"Làm bài kiểm tra trình độ ở trang chính để lộ trình bắt đầu."))];
+  nodes.push(h("div",{class:"card stack"}, h("h3",null,"Nhịp học mỗi tuần"),
+    h("div",{class:"rhythm"}, WEEK_ORDER.map((t,k) => h("div",null, h("b",null,"Ngày " + (k+1)), TYPES[t].vi)), h("div",null,h("b",null,"Ngày 29"),"Ôn tập tháng"), h("div",null,h("b",null,"Ngày 30"),"Kiểm tra tháng"))));
+  MONTHS.forEach((M, mi) => {
+    const m = mi+1;
+    if (PHASES[m]) nodes.push(h("div",{class:"phase"}, PHASES[m]));
+    const doneInMonth = P ? Array.from({length:30},(_,k) => (m-1)*30+k+1).filter(d => P.done?.[d]).length : 0;
+    const det = h("details",{class:"month", open: m === curM ? true : null},
+      h("summary",null, h("span",{class:"mno"},"T" + m), h("span",null, h("b",null,M.vi), h("span",{class:"small muted"}," · " + M.en)), h("span",{class:"prog"}, doneInMonth + "/30")));
+    const body = h("div",{class:"mbody"});
+    M.weeks.forEach((W, wi) => {
+      body.append(h("div",{class:"wk"},
+        h("div",{class:"wt"}, h("span",{class:"chip"},"Tuần " + ((m-1)*4+wi+1)), h("b",null,W[0]), h("span",{class:"small muted"}, W[1])),
+        h("div",{class:"small"}, h("b",null,"Mục tiêu: "), W[3]),
+        h("div",{class:"small muted"}, "Ngữ pháp: " + W[2]),
+        h("div",{class:"week"}, weekDays(m, wi+1).map(d => dayChip(d, P)))));
+    });
+    body.append(h("div",{class:"wk"}, h("div",{class:"wt"}, h("b",null,"Cuối tháng")),
+      h("div",{class:"week",style:"grid-template-columns:repeat(7,minmax(0,1fr))"}, dayChip((m-1)*30+29, P), dayChip((m-1)*30+30, P))));
+    det.append(body);
+    nodes.push(det);
+  });
+  nodes.push(h("div",{class:"card stack"}, h("h3",null,"Cách đánh giá tiến bộ"),
+    h("ul",{style:"margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px"},
+      h("li",null,"Mỗi bài được chấm theo %. Câu trắc nghiệm chấm ngay; bài viết và bài nói do cô Linh chấm theo thang 10 và sửa từng lỗi."),
+      h("li",null,"Độ khó tự điều chỉnh: điểm trung bình 5 bài gần nhất từ 90% trở lên thì bài sau khó hơn, dưới 60% thì nhẹ hơn."),
+      h("li",null,"Lỗi sai được lưu lại và đưa vào bài ôn tập tuần, ôn tập tháng và bài “Ôn lỗi sai”."),
+      h("li",null,"Kiểm tra tháng: từ 85% trở lên được nâng trình độ một bậc, dưới 50% thì lùi một bậc để học chắc hơn."),
+      h("li",null,"Bài không bao giờ bị bỏ qua: mỗi ngày mở một bài mới, nghỉ ngày nào thì hôm sau học tiếp đúng bài đó."))));
+  mount(nodes);
+}
+
+/* ============================== PROGRESS ============================== */
+function renderProgress(){
+  const P = S.profile;
+  if (!P) return mount(h("div",{class:"card stack"}, h("h2",null,"Chưa có dữ liệu"), h("p",null,"Làm bài kiểm tra trình độ để bắt đầu theo dõi tiến độ."), h("div",{class:"row"}, h("button",{class:"btn",onclick:() => go("today")},"Bắt đầu"))));
+  const info = progressInfo(P);
+  const days = Object.keys(P.done||{}).map(Number).sort((a,b) => a-b);
+  const last30 = days.slice(-30);
+  const avg30 = avg(last30.map(d => P.done[d].s));
+  const streak = P.lastDate && daysBetween(P.lastDate, today()) <= 1 ? (P.streak||0) : 0;
+  const sk = {}; last30.forEach(d => Object.entries(P.done[d].k||{}).forEach(([k,v]) => (sk[k] ||= []).push(v)));
+  const nodes = [h("div",{class:"stack",style:"gap:6px"}, h("div",{class:"eyebrow"},"Tiến độ"), h("h1",null,"Bạn đã đi được " + info.doneN + " ngày"))];
+  nodes.push(h("div",{class:"stats"},
+    h("div",{class:"stat"}, h("b",null, info.doneN + "/360"), h("span",null,"Bài đã học")),
+    h("div",{class:"stat"}, h("b",null, streak), h("span",null,"Chuỗi ngày liên tiếp")),
+    h("div",{class:"stat"}, h("b",null, avg30 == null ? "–" : Math.round(avg30) + "%"), h("span",null,"Điểm TB 30 bài gần nhất")),
+    h("div",{class:"stat"}, h("b",null, P.level), h("span",null, LEVEL_VI[P.level]))));
+  const pl = P.placement?.skills || {};
+  nodes.push(h("div",{class:"card stack"}, h("div",{class:"row",style:"justify-content:space-between"}, h("h3",null,"Kỹ năng (30 bài gần nhất)"), P.placement ? h("span",{class:"small muted"},"Ngoặc: điểm đầu vào") : null),
+    h("div",{class:"bars"}, Object.keys(SKILLS).map(k => barRow(SKILLS[k], sk[k] ? Math.round(avg(sk[k])) : null, pl[k] != null ? "Đầu vào " + pl[k] + "%" : null)))));
+  const grid = h("div",{class:"year",role:"grid","aria-label":"Lịch 360 ngày"});
+  for (let m = 1; m <= 12; m++){
+    grid.append(h("span",{class:"ml"},"T" + m));
+    for (let k = 1; k <= 30; k++){
+      const d = (m-1)*30+k, rec = P.done?.[d];
+      let cls = "cell";
+      if (rec) cls += " click " + (rec.s >= 90 ? "s4" : rec.s >= 75 ? "s3" : rec.s >= 55 ? "s2" : "s1");
+      if (d === info.next && !info.finished) cls += " now";
+      grid.append(h("button",{type:"button",class:cls,title:"Ngày " + d + (rec ? " · " + rec.s + "%" : ""),"aria-label":"Ngày " + d + (rec ? " " + rec.s + "%" : ""),tabindex:rec ? null : "-1",onclick:rec ? () => openDay(d, true) : null}));
+    }
+  }
+  nodes.push(h("div",{class:"card stack"}, h("h3",null,"Lịch 360 ngày"), grid,
+    h("div",{class:"legend"}, "Điểm:", h("span",{class:"cell s1"}), "<55", h("span",{class:"cell s2"}), "55–74", h("span",{class:"cell s3"}), "75–89", h("span",{class:"cell s4"}), "90+", h("span",{class:"cell",style:"outline:2px solid var(--mark)"}), "Bài tiếp theo")));
+  nodes.push(h("div",{class:"card stack"}, h("h3",null,"Lịch sử trình độ"),
+    h("div",{class:"stack",style:"gap:6px"}, (P.levelHistory||[]).slice().reverse().map(x => h("div",{class:"row",style:"gap:8px"}, h("span",{class:"chip accent"}, x.l), h("span",{class:"small"}, fmtVN(x.d) + " · " + x.why))))));
+  const mist = (P.mistakes||[]).slice(-8).reverse();
+  nodes.push(h("div",{class:"card stack"}, h("div",{class:"row",style:"justify-content:space-between"}, h("h3",null,"Lỗi gần đây"), AI.s && mist.length >= 3 ? h("button",{class:"btn sm",onclick:openMistakeReview},"Ôn lỗi sai") : null),
+    mist.length ? h("div",null, mist.map(m => h("div",{class:"err"}, h("div",{class:"small muted"}, "Ngày " + m.d + " · " + (SKILLS[m.t]||m.t)), h("div",null, m.q), h("div",null, "Đúng: ", h("ins",null, m.a))))) : h("p",{class:"muted small"},"Chưa có lỗi nào được ghi lại.")));
+  nodes.push(backupCard(false));
+  nodes.push(settingsCard());
+  mount(nodes);
+}
+function settingsCard(){
+  const P = S.profile;
+  const rate = h("select",{id:"setRate",onchange:e => { S.rate = Number(e.target.value); lsSet("rate", S.rate); }}, [["0.8","Chậm"],["0.9","Hơi chậm"],["1","Bình thường"],["1.1","Nhanh"]].map(([v,l]) => h("option",{value:v,selected:Number(v)===S.rate?true:null}, l)));
+  const goal = h("select",{id:"setGoal"}, GOALS.map(g => h("option",{value:g,selected:g===P.goal?true:null}, g)));
+  const mins = h("select",{id:"setMin"}, ["15","30","45","60"].map(m => h("option",{value:m,selected:Number(m)===P.minutes?true:null}, m + " phút/ngày")));
+  const field = h("input",{type:"text",id:"setField",value:P.field||"",placeholder:"VD: xây dựng, BIM…"});
+  const conf = h("div",{class:"confirm",hidden:true},
+    h("b",null,"Xóa toàn bộ tiến độ và bắt đầu lại từ ngày 1?"), h("p",{class:"small"},"Điểm số, lỗi sai và lịch sử trình độ sẽ bị xóa. Không hoàn tác được."),
+    h("div",{class:"row"}, h("button",{class:"btn danger sm",onclick:async () => { lsSet("profile", null); if (Store.mode === "cloud") await Store.ref("profile").delete().catch(() => {}); S.profile = null; go("today"); }},"Xóa và bắt đầu lại"),
+      h("button",{class:"btn quiet sm",onclick:() => conf.hidden = true},"Hủy")));
+  return h("div",{class:"card stack"}, h("h3",null,"Cài đặt"),
+    h("div",{class:"row",style:"align-items:flex-start"}, h("label",{class:"field"},"Tốc độ giọng đọc", rate), h("label",{class:"field"},"Mục tiêu", goal), h("label",{class:"field"},"Thời gian", mins)),
+    h("label",{class:"field"},"Lĩnh vực công việc", field),
+    h("div",{class:"row"}, h("button",{class:"btn sm",onclick:async () => { const p = {goal:goal.value, minutes:Number(mins.value), field:field.value}; deepMerge(P, p); await Store.patch("profile", p); toast("Đã lưu cài đặt."); }},"Lưu cài đặt"),
+      h("button",{class:"btn ghost sm",onclick:startPlacement},"Làm lại kiểm tra trình độ"),
+      h("button",{class:"btn danger sm",onclick:() => conf.hidden = false},"Bắt đầu lại từ đầu")),
+    conf,
+    h("p",{class:"small muted"}, Store.mode === "cloud" ? "Đồng bộ: đang lưu vào tài khoản Claude của bạn." : (STATIC ? "Bản web: tiến độ lưu trên trình duyệt này." : "Đồng bộ: chỉ lưu trên trình duyệt này.")));
+}
+
+/* ============================== CHAT ============================== */
+const ROLES = ["a friendly native-speaker friend","a foreign colleague at work","a client or customer","a job interviewer"];
+const ROLES_VI = ["Bạn bè bản ngữ","Đồng nghiệp nước ngoài","Khách hàng","Người phỏng vấn"];
+function renderChat(){
+  if (STATIC) return mount(aiOnlyCard());
+  const P = S.profile, lvl = P?.level || "B1";
+  const cur = P ? plan(Math.min(progressInfo(P).next,360)) : plan(1);
+  S.chat ||= {topic:cur.sub_en, role:0, turns:[], busy:false};
+  const C = S.chat;
+  const log = h("div",{class:"chatlog",id:"chatlog"});
+  const topic = h("input",{type:"text",id:"chatTopic",value:C.topic,oninput:e => C.topic = e.target.value});
+  const role = h("select",{id:"chatRole",onchange:e => C.role = Number(e.target.value)}, ROLES_VI.map((r,k) => h("option",{value:k,selected:k===C.role?true:null}, r)));
+  const ta = h("textarea",{id:"chatInput",placeholder:"Trả lời bằng tiếng Anh…",rows:"2",onkeydown:e => { if (e.key === "Enter" && !e.shiftKey && !e.isComposing){ e.preventDefault(); send(); } }});
+  const live = h("div",{class:"live-txt"});
+  const sendBtn = h("button",{class:"btn",onclick:() => send()},"Gửi");
+  const mic = Mic.button(t => { ta.value = (ta.value ? ta.value.trimEnd() + " " : "") + t; }, t => live.textContent = t);
+
+  const drawMsg = m => {
+    if (m.r === "t"){
+      const tr = h("div",{class:"tr",hidden:true}, m.vi || "");
+      log.append(h("div",{class:"msg t"}, h("div",{class:"bub"}, m.text),
+        h("div",{class:"row",style:"gap:6px"}, sayBtn(m.text), m.vi ? h("button",{class:"btn quiet sm",onclick:() => tr.hidden = !tr.hidden},"Dịch") : null), tr));
+    } else {
+      const fbx = m.fb ? h("div",{class:"fb " + (m.fb.errors?.length ? "info" : "ok")},
+        m.fb.errors?.length ? m.fb.errors.map(e => h("div",{class:"err"}, h("div",null, h("s",null,e.wrong), " → ", h("ins",null,e.right)), e.why_vi ? h("div",{class:"small"}, e.why_vi) : null)) : h("div",null, h("span",{class:"lbl"},"Không có lỗi. ")),
+        m.fb.natural ? h("div",null, h("span",{class:"lbl"},"Tự nhiên hơn: "), m.fb.natural, " ", sayBtn(m.fb.natural)) : null,
+        m.fb.note_vi ? h("div",{class:"small"}, m.fb.note_vi) : null) : null;
+      log.append(h("div",{class:"msg u"}, h("div",{class:"bub"}, m.text), fbx));
+    }
+  };
+  C.turns.forEach(drawMsg);
+  const transcript = () => C.turns.slice(-14).map(t => (t.r === "t" ? "Partner: " : "Learner: ") + t.text).join("\n");
+  async function start(){
+    if (C.busy) return; C.turns = []; log.replaceChildren(); C.busy = true;
+    const wait = h("div",{class:"loading",style:"padding:16px"}, h("span",{class:"spinner"}));
+    log.append(wait);
+    try {
+      const r = await AI.json(`You are ${ROLES[C.role]}, a native English speaker, starting a conversation with a Vietnamese learner (CEFR ${lvl}) about "${C.topic}". Open naturally in 1-3 sentences at their level and end with a question. Return only JSON: {"reply":"...","reply_vi":"bản dịch tiếng Việt"}`, {cache:false});
+      wait.remove(); const m = {r:"t", text:String(r.reply||""), vi:r.reply_vi}; C.turns.push(m); drawMsg(m);
+    } catch (e){ wait.remove(); log.append(h("div",{class:"fb no"}, errText(e))); }
+    C.busy = false;
+  }
+  async function send(){
+    const text = ta.value.trim(); if (!text || C.busy) return;
+    if (!C.turns.length){ toast("Bấm Bắt đầu để mở cuộc trò chuyện trước."); return; }
+    if (Mic.active) Mic.d.stop().catch(() => {});
+    const before = transcript();
+    const um = {r:"u", text}; C.turns.push(um); ta.value = ""; C.busy = true; sendBtn.disabled = true;
+    const wait = h("div",{class:"loading",style:"padding:12px"}, h("span",{class:"spinner"}));
+    drawMsg(um); log.append(wait); wait.scrollIntoView({block:"end", behavior:"smooth"});
+    try {
+      const r = await AI.json(`You are ${ROLES[C.role]}, a native English speaker chatting with a Vietnamese learner (CEFR ${lvl}) about "${C.topic}".
+Conversation so far:
+${before}
+The learner just wrote: """${text}"""
+1) Check the learner's last message for grammar, vocabulary and naturalness errors (spoken style is fine; ignore missing capitals/punctuation).
+2) Continue the conversation naturally in 1-3 sentences at the learner's level, ending with a question.
+Return only JSON: {"errors":[{"wrong":"exact fragment","right":"correction","why_vi":"giải thích ngắn"}],"natural":"a more natural way to say the learner's whole message (same meaning)","note_vi":"1 câu nhận xét ngắn; nếu không có lỗi thì khen và gợi ý cách nói hay hơn","reply":"your next message","reply_vi":"bản dịch tiếng Việt của reply"}`, {cache:false});
+      um.fb = {errors:Array.isArray(r.errors) ? r.errors : [], natural:r.natural, note_vi:r.note_vi};
+      const tm = {r:"t", text:String(r.reply||""), vi:r.reply_vi}; C.turns.push(tm);
+      log.replaceChildren(); C.turns.forEach(drawMsg);
+      log.lastChild?.scrollIntoView({block:"end", behavior:"smooth"});
+    } catch (e){ wait.remove(); log.append(h("div",{class:"fb no"}, errText(e))); }
+    C.busy = false; sendBtn.disabled = false;
+  }
+  mount(h("div",{class:"stack",style:"gap:6px"}, h("div",{class:"eyebrow"},"Luyện hội thoại"), h("h1",null,"Trò chuyện với người bản ngữ"),
+      h("p",{class:"muted"},"Sau mỗi câu trả lời, cô Linh sửa lỗi, giải thích ngắn gọn và gợi ý cách nói tự nhiên hơn.")),
+    h("div",{class:"card stack"}, h("div",{class:"row",style:"align-items:flex-end"}, h("label",{class:"field"},"Chủ đề", topic), h("label",{class:"field",style:"flex:0 1 220px"},"Bạn đang nói chuyện với", role),
+      h("button",{class:"btn",onclick:start}, C.turns.length ? "Bắt đầu lại" : "Bắt đầu"))),
+    log,
+    h("div",{class:"composer"}, ta, mic, sendBtn), live,
+    !Mic.d ? h("p",{class:"small muted"},"Mẹo: trên điện thoại, bấm micro trên bàn phím để nói thay vì gõ.") : null);
+}
+
+/* ============================== TOOLS ============================== */
+function renderTools(){
+  if (STATIC) return mount(aiOnlyCard());
+  const P = S.profile, lvl = P?.level || "B1";
+  const cur = P ? plan(Math.min(progressInfo(P).next,360)) : plan(1);
+  const seg = h("div",{class:"seg",role:"group","aria-label":"Chọn công cụ"}, [["write","Sửa bài viết"],["vocab","30 từ theo chủ đề"],["pron","Luyện phát âm"]].map(([k,l]) =>
+    h("button",{type:"button","aria-pressed":S.tool===k?"true":"false",onclick:() => { S.tool = k; S.toolOut = null; renderTools(); }}, l)));
+  const out = h("div",{class:"stack",id:"toolOut"});
+  let form;
+  const run = async (btn, fn) => {
+    btn.disabled = true; const old = btn.textContent; btn.replaceChildren(h("span",{class:"spinner"}), " Đang xử lý…");
+    out.replaceChildren();
+    try { await fn(); } catch (e){ out.replaceChildren(h("div",{class:"fb no"}, errText(e))); }
+    btn.disabled = false; btn.textContent = old;
+  };
+  if (S.tool === "write"){
+    const ta = h("textarea",{id:"wText",style:"min-height:180px",placeholder:"Dán hoặc viết đoạn văn tiếng Anh của bạn vào đây…"}, lsGet("wText") || "");
+    ta.addEventListener("input", () => lsSet("wText", ta.value));
+    const kind = h("select",{id:"wKind"}, ["Đoạn văn","Email công việc","Báo cáo","Bài luận IELTS Task 2","Tin nhắn / chat"].map(k => h("option",{value:k},k)));
+    const btn = h("button",{class:"btn",onclick:() => run(btn, async () => {
+      if (wordCount(ta.value) < 5) throw {code:"short", message:""};
+      const r = await AI.json(`Correct this English text written by a Vietnamese learner (CEFR ${lvl}). Text type: ${kind.value}.
+Return only JSON: {"score":<0-10, one decimal allowed>,"criteria":{"task":0-10,"grammar":0-10,"vocab":0-10,"coherence":0-10},"errors":[{"wrong":"exact fragment","right":"correction","why_vi":"giải thích ngắn bằng tiếng Việt"}],"rewrite":"the whole text rewritten naturally","comment_vi":"nhận xét 2-4 câu: điểm mạnh, điều cần cải thiện"}
+Text: """${ta.value.slice(0,6000)}"""`, {cache:false});
+      out.replaceChildren(h("div",{class:"card stack"},
+        h("div",{class:"row",style:"gap:16px"}, h("div",{class:"scorebig"}, (r.score ?? "–") + "/10"), h("p",{style:"flex:1;min-width:200px"}, r.comment_vi || "")),
+        r.criteria ? h("div",{class:"bars"}, [["task","Hoàn thành yêu cầu"],["grammar","Ngữ pháp"],["vocab","Từ vựng"],["coherence","Mạch lạc"]].map(([k,l]) => barRow(l, r.criteria[k] != null ? Math.round(r.criteria[k]*10) : null))) : null),
+        Array.isArray(r.errors) && r.errors.length ? h("div",{class:"card stack"}, h("h3",null, r.errors.length + " lỗi cần sửa"), h("div",null, r.errors.map(e => h("div",{class:"err"}, h("div",null, h("s",null,e.wrong), " → ", h("ins",null,e.right)), h("div",{class:"small muted"}, e.why_vi||""))))) : null,
+        r.rewrite ? h("div",{class:"card stack"}, h("div",{class:"row",style:"justify-content:space-between"}, h("h3",null,"Bản viết lại tự nhiên hơn"), copyBtn(r.rewrite)), h("p",{style:"white-space:pre-line"}, r.rewrite)) : null);
+    }).catch(() => {})},"Chấm và sửa bài");
+    form = h("div",{class:"card stack"}, h("label",{class:"field"},"Loại văn bản", kind), ta, h("div",{class:"row",style:"justify-content:space-between"}, h("span",{class:"wc"},"Chấm theo thang 10, giải thích từng lỗi"), btn));
+  } else {
+    const isV = S.tool === "vocab";
+    const topic = h("input",{type:"text",id:"tTopic",value:cur.sub_en,placeholder:"VD: site safety, hotel check-in…"});
+    const btn = h("button",{class:"btn",onclick:() => run(btn, async () => {
+      const t = topic.value.trim() || cur.sub_en;
+      if (isV){
+        const r = await AI.json(`Teach 30 English words or phrases about "${t}" for a Vietnamese learner at CEFR ${lvl}${P?.field ? " working in " + P.field : ""}. Most useful first. Keep every field short.
+Return only JSON: {"words":[{"w":"word","ipa":"/US IPA/","pos":"n.|v.|adj.|adv.|phr.","vi":"nghĩa","ex":"example","ex_vi":"dịch","col":["2-3 collocations"],"use_vi":"cách dùng khi giao tiếp (ngắn)"}]}`);
+        out.replaceChildren(vocabBlock((r.words||[]).slice(0,30)));
+      } else {
+        const r = await AI.json(`Create 8 English sentences about "${t}" for pronunciation practice by a Vietnamese learner at CEFR ${lvl}, targeting sounds and patterns Vietnamese speakers find hard (final consonants, /θ ð/, /ʃ ʒ/, /r l/, clusters, word stress, linking, intonation).
+Return only JSON: {"items":[{"s":"sentence","ipa":"/US IPA of the sentence/","stress":"sentence with STRESSED syllables in capitals","tone":"ngữ điệu (lên/xuống ở đâu)","pitfalls_vi":"âm dễ phát âm sai","tip_vi":"mẹo luyện tập"}]}`);
+        out.replaceChildren(pronBlock(r.items||[]));
+      }
+    })}, isV ? "Tạo 30 từ" : "Tạo bài phát âm");
+    form = h("div",{class:"card stack"}, h("div",{class:"row",style:"align-items:flex-end"}, h("label",{class:"field"},"Chủ đề", topic), btn),
+      h("p",{class:"small muted"}, isV ? "Mỗi từ có nghĩa, phiên âm, ví dụ, cụm từ thường đi cùng và cách dùng khi giao tiếp." : "Mỗi câu có phiên âm, trọng âm, ngữ điệu, âm dễ sai và mẹo luyện. Bấm Đọc thử để máy nghe và chấm."));
+  }
+  mount(h("div",{class:"stack",style:"gap:6px"}, h("div",{class:"eyebrow"},"Luyện thêm"), h("h1",null,"Công cụ luyện tập tự do")), seg, form, out);
+}
+function copyBtn(text){
+  return h("button",{type:"button",class:"btn quiet sm",onclick:e => { const b = e.currentTarget; navigator.clipboard.writeText(text).then(() => { b.textContent = "Đã chép"; }, () => toast("Không chép được, hãy bôi đen và sao chép thủ công.")); }},"Chép");
+}
+
+/* ============================== BACKUP (move progress between accounts) ============================== */
+const BK_APP = "lo-trinh-360";
+function mergeProfiles(a, b){
+  if (!a) return b; if (!b) return a;
+  const n = x => Object.keys(x.done||{}).length;
+  const la = a.lastDate || "", lb = b.lastDate || "";
+  const newer = lb > la || (lb === la && n(b) > n(a)) ? b : a, older = newer === a ? b : a;
+  const uniq = (arr, key) => { const seen = new Set(); return arr.filter(x => { const k = key(x); if (seen.has(k)) return false; seen.add(k); return true; }); };
+  const starts = [a.startDate, b.startDate].filter(Boolean).sort();
+  return {...newer,
+    startDate: starts[0] || newer.startDate,
+    done: {...(older.done||{}), ...(newer.done||{})},
+    mistakes: uniq([...(older.mistakes||[]), ...(newer.mistakes||[])], m => m.d + "|" + m.q + "|" + m.a).slice(-40),
+    levelHistory: uniq([...(older.levelHistory||[]), ...(newer.levelHistory||[])], x => x.d + "|" + x.l + "|" + x.why).sort((x,y) => String(x.d).localeCompare(String(y.d))),
+    placement: newer.placement || older.placement || null,
+    focus: (newer.focus && newer.focus.length) ? newer.focus : (older.focus || [])};
+}
+async function buildBackup(){
+  let placement = null; try { placement = await Store.get("placement-result"); } catch {}
+  return {app:BK_APP, v:1, exportedAt:new Date().toISOString(), profile:S.profile, placement};
+}
+function parseBackup(text){
+  let o; try { o = JSON.parse(String(text||"").trim()); } catch { throw new Error("Mã sao lưu không đọc được. Hãy dán đủ toàn bộ nội dung."); }
+  if (!o || o.app !== BK_APP || !o.profile || typeof o.profile.done !== "object") throw new Error("Đây không phải bản sao lưu của Lộ trình tiếng Anh 360.");
+  return o;
+}
+async function restoreBackup(text){
+  const o = parseBackup(text);
+  const merged = mergeProfiles(S.profile, o.profile);
+  await Store.set("profile", merged);
+  if (o.placement){ let cur = null; try { cur = await Store.get("placement-result"); } catch {} if (!cur) await Store.set("placement-result", o.placement); }
+  S.profile = merged;
+  return Object.keys(merged.done||{}).length;
+}
+function backupCard(restoreOnly){
+  const msg = h("p",{class:"small",hidden:true,role:"status"});
+  const say = t => { msg.textContent = t; msg.hidden = false; };
+  const codeOut = h("textarea",{readonly:true,style:"min-height:90px;font-size:12px","aria-label":"Mã sao lưu"});
+  const outBox = h("div",{class:"stack",hidden:true,style:"gap:8px"},
+    h("p",{class:"small muted"},"Nếu không lưu được tệp: bấm Chép rồi dán mã này vào app ở tài khoản kia (mục Khôi phục)."),
+    codeOut, h("div",{class:"row"}, h("button",{type:"button",class:"btn quiet sm",onclick:e => { const b = e.currentTarget; codeOut.select(); navigator.clipboard?.writeText(codeOut.value).then(() => { b.textContent = "Đã chép"; }, () => { try { document.execCommand("copy"); b.textContent = "Đã chép"; } catch { toast("Hãy bôi đen mã rồi sao chép thủ công."); } }); }},"Chép mã")));
+  const doExport = async () => {
+    const text = JSON.stringify(await buildBackup());
+    codeOut.value = text; outBox.hidden = false;
+    const dl = window.claude?.use ? await claude.use("downloads").catch(() => null) : null;
+    if (!dl && STATIC){ const a = h("a",{href:URL.createObjectURL(new Blob([text],{type:"application/json"})), download:"lo-trinh-360_sao-luu_" + today() + ".json"}); a.click(); say("Đã tải tệp sao lưu. Ở máy kia: Tiến độ → Khôi phục và chọn tệp này."); return; }
+    if (!dl){ say("Đã tạo mã sao lưu bên dưới."); return; }
+    try { await dl.save({filename:"lo-trinh-360_sao-luu_" + today() + ".json", data:text}); say("Đã lưu tệp sao lưu. Mở app ở tài khoản kia, vào Tiến độ → Khôi phục và chọn tệp này."); }
+    catch (e){ say(e?.code === "declined" ? "Bạn chưa lưu tệp. Có thể dùng mã sao lưu bên dưới." : "Không lưu được tệp ở đây. Hãy dùng mã sao lưu bên dưới."); }
+  };
+  const paste = h("textarea",{placeholder:"Dán mã sao lưu vào đây…",style:"min-height:90px;font-size:12px","aria-label":"Dán mã sao lưu"});
+  const file = h("input",{type:"file",accept:".json,application/json,text/plain",hidden:true,onchange:async e => { const f = e.target.files?.[0]; if (f){ paste.value = await f.text(); say("Đã đọc tệp " + f.name + ". Bấm Khôi phục để gộp tiến độ."); } }});
+  const doRestore = async () => {
+    try { const n = await restoreBackup(paste.value); paste.value = ""; toast("Đã khôi phục: " + n + " ngày đã học."); go("today"); }
+    catch (e){ say(e.message || String(e)); }
+  };
+  const inBox = h("div",{class:"stack",hidden:!restoreOnly ? true : null,style:"gap:8px"},
+    h("p",{class:"small muted"},"Chọn tệp sao lưu (.json) hoặc dán mã sao lưu. Tiến độ được gộp với dữ liệu đang có: bài đã học ở cả hai bên đều được giữ."),
+    h("div",{class:"row"}, h("button",{type:"button",class:"btn quiet sm",onclick:() => file.click()},"Chọn tệp sao lưu…"), file),
+    paste, h("div",{class:"row"}, h("button",{type:"button",class:"btn sm",onclick:doRestore},"Khôi phục tiến độ")));
+  return h("div",{class:"card stack"},
+    h("h3",null, restoreOnly ? "Đã học ở " + (STATIC ? "máy" : "tài khoản") + " khác?" : STATIC ? "Chuyển tiến độ sang máy khác" : "Chuyển tiến độ giữa 2 tài khoản"),
+    restoreOnly ? h("p",{class:"small muted"},"Khôi phục bản sao lưu để học tiếp, không cần làm lại bài kiểm tra.")
+      : h("p",{class:"small muted"},"Trước khi đổi tài khoản: bấm Sao lưu. Sang tài khoản kia: mở app, vào Tiến độ → Khôi phục."),
+    restoreOnly ? null : h("div",{class:"row"}, h("button",{type:"button",class:"btn sm",onclick:doExport},"Sao lưu tiến độ"),
+      h("button",{type:"button",class:"btn ghost sm",onclick:() => inBox.hidden = !inBox.hidden},"Khôi phục")),
+    outBox, inBox, msg);
+}
+
+/* ============================== BOOT ============================== */
+async function boot(){
+  window.addEventListener("hashchange", route);
+  await Promise.all([Store.init(), AI.init(), Voice.init(), Mic.init()]);
+  await loadPublished();
+  $("#sync").textContent = Store.mode === "cloud" ? "Đã đồng bộ" : "Lưu trên máy";
+  $("#sync").title = Store.mode === "cloud" ? "Tiến độ lưu vào tài khoản Claude, dùng được trên mọi thiết bị" : "Mở trên claude.ai khi đã đăng nhập để đồng bộ giữa các thiết bị";
+  S.profile = await Store.get("profile");
+  route();
+  document.addEventListener("visibilitychange", async () => {
+    if (document.visibilityState !== "visible" || S.view === "lesson" || S.view === "chat") return;
+    await loadPublished();
+    const p = await Store.get("profile"); if (p){ S.profile = p; render(); }
+  });
+}
+boot();
+</script>

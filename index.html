@@ -57,6 +57,7 @@ header.top .wrap{display:flex;align-items:center;gap:16px;padding-block:10px}
   .tabs.bottom a{flex-direction:column;gap:2px;font-size:.68rem;padding:4px 6px;border-radius:10px;min-width:58px}
   .tabs.bottom a svg{width:21px;height:21px}
 }
+.who{cursor:pointer;background:var(--accent-soft,transparent);color:var(--ink);font:inherit;font-size:.78rem}
 .sync{font-size:.72rem;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 8px;white-space:nowrap}
 main{padding-block:20px calc(40px + var(--navh))}
 .stack{display:flex;flex-direction:column;gap:16px}
@@ -226,6 +227,7 @@ hr.sep{border:0;border-top:1px solid var(--line);margin:4px 0}
 <header class="top"><div class="wrap">
   <div class="brand">Lộ trình 360<small>Gia sư tiếng Anh cô Linh</small></div>
   <nav class="tabs side" id="navSide"></nav>
+  <button type="button" class="sync who" id="who" hidden></button>
   <span class="sync" id="sync">Đang kết nối…</span>
 </div></header>
 <main class="wrap" id="view"><div class="loading"><span class="spinner"></span>Đang mở sổ học…</div></main>
@@ -416,8 +418,10 @@ const dayKey = n => "day-" + String(n).padStart(3,"0");
 const clamp = (x,a,b) => Math.max(a, Math.min(b, x));
 const isObj = v => v && typeof v === "object" && !Array.isArray(v);
 function deepMerge(t, s){ for (const [k,v] of Object.entries(s)){ if (isObj(v) && isObj(t[k])) deepMerge(t[k], v); else t[k] = isObj(v) ? deepMerge({}, v) : v; } return t; }
-function lsGet(k){ try { const v = localStorage.getItem("l360:"+k); return v ? JSON.parse(v) : null; } catch { return null; } }
-function lsSet(k,v){ try { if (v == null) localStorage.removeItem("l360:"+k); else localStorage.setItem("l360:"+k, JSON.stringify(v)); } catch {} }
+const GLOBAL_KEYS = new Set(["rate","learners","learner"]);
+function pk(k, id){ id ??= (typeof S === "object" && S.learner) || "main"; return id === "main" || GLOBAL_KEYS.has(k) ? k : id + "__" + k; }
+function lsGet(k){ try { const v = localStorage.getItem("l360:"+pk(k)); return v ? JSON.parse(v) : null; } catch { return null; } }
+function lsSet(k,v){ try { k = "l360:"+pk(k); if (v == null) localStorage.removeItem(k); else localStorage.setItem(k, JSON.stringify(v)); } catch {} }
 let toastT;
 function toast(msg, ms=3200){ const t = $("#toast"); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => t.hidden = true, ms); }
 const withTimeout = (p, ms) => Promise.race([p, new Promise((_,rej) => setTimeout(() => rej({code:"timeout"}), ms))]);
@@ -460,7 +464,7 @@ const Store = {
       if (db && user){ const id = await user.id(); if (id){ this.db = db; this.base = "data/users/" + id; this.mode = "cloud"; } }
     } catch (e) { console.warn("db init", e); }
   },
-  ref(k){ return this.db.doc(this.base + "/" + k); },
+  ref(k){ return this.db.doc(this.base + "/" + pk(k)); },
   async get(k){
     if (this.mode === "cloud"){
       try { const s = await withTimeout(this.ref(k).get(), 12000); const v = s.exists ? s.data() : null; if (v) lsSet(k, v); return v; }
@@ -618,7 +622,7 @@ const Mic = {
 };
 
 /* ============================== STATE ============================== */
-const S = { profile:null, published:null, view:"today", lesson:null, rate:Number(lsGet("rate")) || 1, chat:null, tool:"write", toolOut:null };
+const S = { learner:"main", learners:[], profile:null, published:null, view:"today", lesson:null, rate:Number(lsGet("rate")) || 1, chat:null, tool:"write", toolOut:null };
 
 function progressInfo(P){
   const done = P.done || {};
@@ -653,7 +657,7 @@ function renderNav(){
 }
 function setHash(v){ try { history.replaceState(null, "", "#" + v); } catch {} }
 function go(v){
-  S.view = NAV.some(n => n[0]===v) || v === "lesson" ? v : "today";
+  S.view = NAV.some(n => n[0]===v) || v === "lesson" || v === "learners" ? v : "today";
   if (S.view === "lesson" && !S.lesson) S.view = "today";
   if (S.view !== "lesson"){ Voice.stop(); if (Mic.active) Mic.d?.stop().catch(() => {}); }
   setHash(S.view);
@@ -663,7 +667,7 @@ function route(){ go((location.hash || "#today").slice(1)); }
 function mount(...nodes){ const v = $("#view"); v.replaceChildren(...nodes.flat()); }
 function render(){
   renderNav();
-  ({today:renderToday, roadmap:renderRoadmap, chat:renderChat, tools:renderTools, progress:renderProgress, lesson:renderLesson})[S.view]();
+  ({today:renderToday, roadmap:renderRoadmap, chat:renderChat, tools:renderTools, progress:renderProgress, lesson:renderLesson, learners:renderLearners})[S.view]();
   if (S.view !== "lesson") window.scrollTo(0,0);
 }
 function loadingView(msg){ return h("div", {class:"loading"}, h("span",{class:"spinner"}), h("div", null, msg)); }
@@ -705,7 +709,7 @@ function renderToday(){
     h("div",{class:"daynum"}, info.todayDone ? n-1 : n, h("small",null," /360")),
     h("div",{class:"stack",style:"gap:6px"},
       h("div",{class:"eyebrow"}, new Date().toLocaleDateString("vi-VN",{weekday:"long", day:"numeric", month:"numeric"})),
-      h("h1",null, info.todayDone ? "Hôm nay bạn đã học xong" : "Chào bạn, bài hôm nay đã sẵn sàng"),
+      h("h1",null, info.todayDone ? "Hôm nay bạn đã học xong" : "Chào " + learnerName(S.learner) + ", bài hôm nay đã sẵn sàng"),
       h("div",{class:"chips"}, h("span",{class:"chip accent"},"Trình độ " + P.level), h("span",{class:"chip mark"},"Chuỗi " + streak + " ngày"),
         P.difficulty ? h("span",{class:"chip"}, P.difficulty > 0 ? "Độ khó: nâng cao" : "Độ khó: nhẹ hơn") : null))));
 
@@ -745,6 +749,7 @@ function onboarding(){
   const save = () => lsSet("onboard", ob);
   const goal = h("select",{id:"obGoal", onchange:e => {ob.goal=e.target.value; save();}}, GOALS.map(g => h("option",{value:g, selected:g===ob.goal?true:null}, g)));
   const mins = h("select",{id:"obMin", onchange:e => {ob.minutes=e.target.value; save();}}, ["15","30","45","60"].map(m => h("option",{value:m, selected:m===ob.minutes?true:null}, m + " phút/ngày")));
+  const nameIn = S.learners.length ? null : h("input",{type:"text", id:"obName", maxlength:"40", placeholder:"Tên của bạn", value:ob.name||"", oninput:e => {ob.name=e.target.value; save();}});
   const field = h("input",{type:"text", id:"obField", value:ob.field, placeholder:"VD: xây dựng, BIM, kế toán…", oninput:e => {ob.field=e.target.value; save();}});
   const lvl = h("select",{id:"obLevel"}, LEVELS.slice(0,8).map(l => h("option",{value:l}, l + " · " + LEVEL_VI[l])));
   const skipBox = h("div",{class:"stack",hidden:true,style:"gap:10px"},
@@ -752,11 +757,12 @@ function onboarding(){
     h("div",{class:"row"}, h("button",{class:"btn",onclick:async () => { await createProfile({level:lvl.value, why:"Tự chọn trình độ"}); go("today"); render(); }},"Bắt đầu lộ trình")));
   return h("div",{class:"stack"},
     h("div",{class:"stack",style:"gap:8px"}, h("div",{class:"eyebrow"},"Bắt đầu"),
-      h("h1",null,"Chào bạn! Mình là cô Linh, gia sư tiếng Anh của bạn."),
+      h("h1",null,"Chào " + (S.learners.length ? learnerName(S.learner) : "bạn") + "! Mình là cô Linh, gia sư tiếng Anh của bạn."),
       h("p",{class:"muted"},"Mỗi ngày app mở một bài học mới theo lộ trình 360 ngày, đúng trình độ của bạn. Bạn làm bài ngay trên app, cô Linh chấm điểm, sửa lỗi và tự điều chỉnh độ khó.")),
     h("div",{class:"card stack"},
       h("h3",null,"Vài thông tin để lập lộ trình"),
       h("div",{class:"row",style:"align-items:flex-start"}, h("label",{class:"field"},"Mục tiêu chính", goal), h("label",{class:"field"},"Thời gian học", mins)),
+      nameIn ? h("label",{class:"field"},"Tên người học", nameIn) : null,
       h("label",{class:"field"},"Lĩnh vực công việc (để chọn ví dụ phù hợp)", field),
       h("hr",{class:"sep"}),
       h("p",null,"Bước tiếp theo là bài kiểm tra trình độ gồm 6 phần: từ vựng, ngữ pháp, đọc, nghe, viết, nói. Mất khoảng 25–30 phút."),
@@ -769,6 +775,7 @@ function onboarding(){
 
 async function createProfile({level, why, placement}){
   const ob = lsGet("onboard") || {};
+  if (!S.learners.some(l => l.id === S.learner)){ S.learners.push({id:S.learner, name:(ob.name||"").trim().slice(0,40) || "Người học " + (S.learners.length+1), created:today()}); await saveLearners(); }
   const old = S.profile;
   if (old){
     const patch = {level, levelHistory:[...(old.levelHistory||[]), {d:today(), l:level, why}]};
@@ -1356,6 +1363,7 @@ function renderProgress(){
   const mist = (P.mistakes||[]).slice(-8).reverse();
   nodes.push(h("div",{class:"card stack"}, h("div",{class:"row",style:"justify-content:space-between"}, h("h3",null,"Lỗi gần đây"), AI.s && mist.length >= 3 ? h("button",{class:"btn sm",onclick:openMistakeReview},"Ôn lỗi sai") : null),
     mist.length ? h("div",null, mist.map(m => h("div",{class:"err"}, h("div",{class:"small muted"}, "Ngày " + m.d + " · " + (SKILLS[m.t]||m.t)), h("div",null, m.q), h("div",null, "Đúng: ", h("ins",null, m.a))))) : h("p",{class:"muted small"},"Chưa có lỗi nào được ghi lại.")));
+  nodes.push(h("div",{class:"card flat row",style:"justify-content:space-between"}, h("div",null, h("b",null, learnerName(S.learner)), h("p",{class:"small muted"},"Thêm người học, đổi người học hoặc xem tiến độ của mọi người.")), h("button",{class:"btn quiet",onclick:() => go("learners")},"Quản lý người học")));
   nodes.push(backupCard(false));
   nodes.push(settingsCard());
   mount(nodes);
@@ -1509,6 +1517,52 @@ function copyBtn(text){
   return h("button",{type:"button",class:"btn quiet sm",onclick:e => { const b = e.currentTarget; navigator.clipboard.writeText(text).then(() => { b.textContent = "Đã chép"; }, () => toast("Không chép được, hãy bôi đen và sao chép thủ công.")); }},"Chép");
 }
 
+/* ============================== LEARNERS (profiles on this device / account) ============================== */
+const learnerName = id => S.learners.find(l => l.id === id)?.name || "Người học";
+async function saveLearners(){ await Store.set("learners", S.learners); showWho(); }
+function showWho(){ const b = $("#who"); if (!b) return; b.hidden = !S.learners.length; b.textContent = "👤 " + learnerName(S.learner); b.title = "Đổi hoặc quản lý người học"; }
+async function useLearner(id){
+  Voice.stop(); S.learner = id; lsSet("learner", id); S.lesson = null; S.chat = null;
+  S.profile = await Store.get("profile"); showWho(); go("today");
+}
+async function addLearner(name){
+  const id = "u" + Date.now().toString(36);
+  S.learners.push({id, name, created:today()}); await saveLearners(); await useLearner(id);
+}
+async function removeLearner(id){
+  const prev = S.learner; S.learner = id;
+  if (Store.mode === "cloud") for (const k of ["profile","placement-result"]) await Store.ref(k).delete().catch(() => {});
+  try { Object.keys(localStorage).filter(k => k.startsWith("l360:") && (id === "main" ? !k.includes("__") && !GLOBAL_KEYS.has(k.slice(5)) : k.startsWith("l360:" + id + "__"))).forEach(k => localStorage.removeItem(k)); } catch {}
+  S.learner = prev; S.learners = S.learners.filter(l => l.id !== id); await saveLearners();
+}
+async function renderLearners(){
+  mount(loadingView("Đang mở danh sách người học…"));
+  const rows = [];
+  for (const L of S.learners){
+    const prev = S.learner; S.learner = L.id; const P = await Store.get("profile"); S.learner = prev;
+    const info = P ? progressInfo(P) : null, d = P ? Object.keys(P.done||{}).map(Number) : [];
+    const a = P ? avg(d.slice(-30).map(n => P.done[n].s)) : null;
+    const conf = h("div",{class:"confirm",hidden:true}, h("b",null,"Xóa " + L.name + " và toàn bộ tiến độ?"), h("p",{class:"small"},"Không hoàn tác được. Hãy Sao lưu trước nếu cần."),
+      h("div",{class:"row"}, h("button",{class:"btn danger sm",onclick:async () => { await removeLearner(L.id); renderLearners(); }},"Xóa"), h("button",{class:"btn quiet sm",onclick:() => conf.hidden = true},"Hủy")));
+    rows.push(h("div",{class:"card stack"},
+      h("div",{class:"row",style:"justify-content:space-between"}, h("h3",null, L.name, L.id === S.learner ? h("span",{class:"chip accent",style:"margin-left:8px"},"Đang học") : null),
+        h("span",{class:"muted small"}, "Tạo " + fmtVN(L.created || today()))),
+      P ? h("div",{class:"chips"}, h("span",{class:"chip"},"Trình độ " + P.level), h("span",{class:"chip"}, info.doneN + "/360 bài"), h("span",{class:"chip"},"TB " + (a == null ? "–" : Math.round(a) + "%")),
+          h("span",{class:"chip"}, P.lastDate ? "Học gần nhất " + fmtVN(P.lastDate) : "Chưa học bài nào"))
+        : h("p",{class:"small muted"},"Chưa bắt đầu: cần làm bài kiểm tra trình độ hoặc tự chọn trình độ."),
+      h("div",{class:"row"}, L.id === S.learner ? null : h("button",{class:"btn sm",onclick:() => useLearner(L.id)},"Học với hồ sơ này"),
+        h("button",{class:"btn ghost sm",onclick:async () => { const n = prompt("Tên mới", L.name); if (n && n.trim()){ L.name = n.trim().slice(0,40); await saveLearners(); renderLearners(); } }},"Đổi tên"),
+        S.learners.length > 1 ? h("button",{class:"btn quiet sm",onclick:() => conf.hidden = false},"Xóa") : null),
+      conf));
+  }
+  const name = h("input",{type:"text",id:"newLearner",placeholder:"Tên người học, ví dụ: Lan",maxlength:"40"});
+  mount(h("div",{class:"stack",style:"gap:6px"}, h("div",{class:"eyebrow"},"Quản lý"), h("h1",null,"Người học")),
+    h("p",{class:"muted"},"Mỗi người có lộ trình, điểm số và trình độ riêng. Tất cả học chung bộ bài cô Linh đăng mỗi ngày."),
+    rows,
+    h("div",{class:"card stack"}, h("h3",null,"Thêm người học"), h("label",{class:"field"},"Tên", name),
+      h("div",{class:"row"}, h("button",{class:"btn",onclick:() => { const n = name.value.trim(); if (!n) return toast("Nhập tên người học."); addLearner(n.slice(0,40)); }},"Thêm và bắt đầu học"))));
+}
+
 /* ============================== BACKUP (move progress between accounts) ============================== */
 const BK_APP = "lo-trinh-360";
 function mergeProfiles(a, b){
@@ -1585,6 +1639,10 @@ async function boot(){
   await loadPublished();
   $("#sync").textContent = Store.mode === "cloud" ? "Đã đồng bộ" : "Lưu trên máy";
   $("#sync").title = Store.mode === "cloud" ? "Tiến độ lưu vào tài khoản Claude, dùng được trên mọi thiết bị" : "Mở trên claude.ai khi đã đăng nhập để đồng bộ giữa các thiết bị";
+  S.learners = (await Store.get("learners")) || [];
+  const last = lsGet("learner");
+  S.learner = S.learners.some(l => l.id === last) ? last : (S.learners[0]?.id || "main");
+  $("#who").onclick = () => go("learners"); showWho();
   S.profile = await Store.get("profile");
   route();
   document.addEventListener("visibilitychange", async () => {
